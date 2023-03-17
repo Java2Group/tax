@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
 
-package taxsoftware;
+package tax;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
