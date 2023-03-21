@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
-
 package tax;
 
 import javafx.application.Application;
@@ -114,7 +113,8 @@ public class T4 extends Application {
             double totalBenefits = eiBenefit + netIncome;
 
             // Calculate the taxes owed or tax refund
-            double taxPayable = calculateTaxPayable(netIncome, incomeTaxDeducted);
+            double taxCalculated = calculateTaxPayable(netIncome);
+            double taxPayable = calculateTaxPayable(netIncome) - incomeTaxDeducted;
             double refund = calculateRefund(taxPayable, incomeTaxDeducted);
 
             // Create a formatted string with the result
@@ -159,35 +159,37 @@ public class T4 extends Application {
     }
 
     // Method to calculate the taxes owed based on the net income
-    private double calculateTaxPayable(double netIncome, double incomeTaxDeducted) {
+    private double calculateTaxPayable(double netIncome) {
         double taxPayable;
-        if(netIncome <= 15000){
+
+        if (netIncome <= 15000) {
             taxPayable = 0;
-        }
-        else if (netIncome <= 48730) {
-            taxPayable = (netIncome * 0.15) - incomeTaxDeducted;
+        } else if (netIncome <= 48730) {
+            taxPayable = ((netIncome - 15000) * 0.15);
         } else if (netIncome <= 97440) {
-            taxPayable = 7309.50 + ((netIncome - 48730) * 0.205) - incomeTaxDeducted;
+            taxPayable = 7309.50 + ((netIncome - 48730 - 15000) * 0.205);
         } else if (netIncome <= 150000) {
-            taxPayable = 17211.50 + ((netIncome - 97440) * 0.26) - incomeTaxDeducted;
+            taxPayable = 17211.50 + ((netIncome - 97440 - 15000) * 0.26);
         } else if (netIncome <= 214368) {
-            taxPayable = 31115.50 + ((netIncome - 150000) * 0.29) - incomeTaxDeducted;
+            taxPayable = 31115.50 + ((netIncome - 150000 - 97440) * 0.29);
         } else {
-            taxPayable = 49644.50 + ((netIncome - 214368) * 0.33) - incomeTaxDeducted;
+            taxPayable = 49644.50 + ((netIncome - 214368 - 150000 - 97440) * 0.33);
         }
+
         return taxPayable;
     }
 
 // Method to calculate the tax refund based on the taxes owed and income tax deducted
     // Method to calculate the tax refund based on the taxes owed and income tax deducted
-    private double calculateRefund(double taxPayable, double incomeTaxDeducted) {
+    private double calculateRefund(double taxCalculated, double incomeTaxDeducted) {
         double refund;
-        if (incomeTaxDeducted > taxPayable) {
-            refund = taxPayable - incomeTaxDeducted;
-        } else {
+        if(incomeTaxDeducted > taxCalculated){
+             refund = (taxCalculated - incomeTaxDeducted) * (-1);
+            
+        }else{
             refund = 0;
         }
-        return refund;
+       return refund;
     }
 
     public static void main(String[] args) {
