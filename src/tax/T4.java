@@ -110,17 +110,16 @@ public class T4 extends Application {
             double totalDeductions = cppContributions + eiPremiums + rppContributions + unionDues + charitableDonations;
             double netIncome = employmentIncome - totalDeductions;
             double eiBenefit = 0.55 * eiInsurableEarnings;
-            double totalBenefits = eiBenefit + netIncome;
 
             // Calculate the taxes owed or tax refund
-            double taxPayable = calculateTaxPayable(netIncome) - incomeTaxDeducted;
+            double taxPayable = Calculations.calculateTaxPayableT4(netIncome) - incomeTaxDeducted;
 
             // Create a formatted string with the result
             String result;
             if (taxPayable < 0) {
-                result = String.format("Tax Refund: $%.2f", taxPayable * -1);
+                result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f", taxPayable * -1, eiBenefit);
             } else {
-                result = String.format("Taxes Owed: $%.2f", taxPayable);
+                result = String.format("Taxes Owed: $%.2f\nUnemployment Insurance Benefits: $%.2f", taxPayable, eiBenefit);
             }
 
             // Create a new window to display the result
@@ -154,26 +153,6 @@ public class T4 extends Application {
         primaryStage.setTitle(
                 "TaxSoftware");
         primaryStage.show();
-    }
-
-    // Method to calculate the taxes owed based on the net income
-    private double calculateTaxPayable(double netIncome) {
-        double taxPayable;
-
-        if (netIncome <= 15000) {
-            taxPayable = 0;
-        } else if (netIncome <= 48730) {
-            taxPayable = ((netIncome - 15000) * 0.15);
-        } else if (netIncome <= 97440) {
-            taxPayable = 7309.50 + ((netIncome - 48730 - 15000) * 0.205);
-        } else if (netIncome <= 150000) {
-            taxPayable = 17211.50 + ((netIncome - 97440 - 15000) * 0.26);
-        } else if (netIncome <= 214368) {
-            taxPayable = 31115.50 + ((netIncome - 150000 - 97440) * 0.29);
-        } else {
-            taxPayable = 49644.50 + ((netIncome - 214368 - 150000 - 97440) * 0.33);
-        }
-        return taxPayable;
     }
 
     public static void main(String[] args) {
