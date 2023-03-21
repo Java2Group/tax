@@ -113,14 +113,12 @@ public class T4 extends Application {
             double totalBenefits = eiBenefit + netIncome;
 
             // Calculate the taxes owed or tax refund
-            double taxCalculated = calculateTaxPayable(netIncome);
             double taxPayable = calculateTaxPayable(netIncome) - incomeTaxDeducted;
-            double refund = calculateRefund(taxPayable, incomeTaxDeducted);
 
             // Create a formatted string with the result
             String result;
-            if (refund > 0) {
-                result = String.format("Tax Refund: $%.2f", refund);
+            if (taxPayable < 0) {
+                result = String.format("Tax Refund: $%.2f", taxPayable * -1);
             } else {
                 result = String.format("Taxes Owed: $%.2f", taxPayable);
             }
@@ -175,21 +173,7 @@ public class T4 extends Application {
         } else {
             taxPayable = 49644.50 + ((netIncome - 214368 - 150000 - 97440) * 0.33);
         }
-
         return taxPayable;
-    }
-
-// Method to calculate the tax refund based on the taxes owed and income tax deducted
-    // Method to calculate the tax refund based on the taxes owed and income tax deducted
-    private double calculateRefund(double taxCalculated, double incomeTaxDeducted) {
-        double refund;
-        if(incomeTaxDeducted > taxCalculated){
-             refund = (taxCalculated - incomeTaxDeducted) * (-1);
-            
-        }else{
-            refund = 0;
-        }
-       return refund;
     }
 
     public static void main(String[] args) {
