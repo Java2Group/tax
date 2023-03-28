@@ -2,7 +2,6 @@
 package tax;
 
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,7 +10,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -149,23 +147,7 @@ public class Registration extends Application {
 	inputArea.add(passwordBox, 0, 8);
 	inputArea.add(rePasswordBox, 0, 9);
 
-	ColumnConstraints column1 = new ColumnConstraints();
-	column1.setHalignment(HPos.RIGHT);
-
-	ColumnConstraints column2 = new ColumnConstraints();
-	column2.setHalignment(HPos.LEFT);
-
-	ColumnConstraints column3 = new ColumnConstraints();
-	column3.setHalignment(HPos.RIGHT);
-
-	ColumnConstraints column4 = new ColumnConstraints();
-	column4.setHalignment(HPos.LEFT);
-
-	inputArea.getColumnConstraints().addAll(column1, column2, column3, column4); 
-
 	GridPane.setColumnSpan(streetBox, 2);
-
-
 
 
 	CheckBox tosCheck = new CheckBox("I have read and agree to the ");
@@ -198,7 +180,7 @@ public class Registration extends Application {
 	VBox outerPanel = new VBox();
 	outerPanel.setAlignment(Pos.CENTER);
 	outerPanel.setFillWidth(false);
-	outerPanel.setPadding(new Insets(10, 10, 10, 10));
+	outerPanel.setPadding(new Insets(20, 20, 20, 20));
 	outerPanel.getChildren().addAll(alignPanel);
 
         Scene scene = new Scene(outerPanel);
