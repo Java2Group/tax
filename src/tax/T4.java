@@ -8,7 +8,6 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -93,42 +92,7 @@ public class T4 extends Application {
         // Create the calculate button
         Button calcButton = new Button("Calculate");
         calcButton.setOnAction(e -> {
-            // Parse the values from the textfields
-            if (income.getText().isEmpty()) {
-                income.setText("0");
-            }
-            double employmentIncome = Double.parseDouble(income.getText());
-            double incomeTaxDeducted = Double.parseDouble(taxDeducted.getText());
-            double cppContributions = Double.parseDouble(cpp.getText());
-            double eiPremiums = Double.parseDouble(eiPremium.getText());
-            double rppContributions = Double.parseDouble(rpp.getText());
-            double eiInsurableEarnings = Double.parseDouble(insurable.getText());
-            double unionDues = Double.parseDouble(union.getText());
-            double charitableDonations = Double.parseDouble(donations.getText());
-
-            // Perform the calculation
-            double totalDeductions = cppContributions + eiPremiums + rppContributions + unionDues + charitableDonations;
-            double netIncome = employmentIncome - totalDeductions;
-            double eiBenefit = 0.55 * eiInsurableEarnings;
-
-            // Calculate the taxes owed or tax refund
-            double taxPayable = Calculations.calculateTaxPayableT4(netIncome) - incomeTaxDeducted;
-
-            // Create a formatted string with the result
-            String result;
-            if (taxPayable < 0) {
-                result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f", taxPayable * -1, eiBenefit);
-            } else {
-                result = String.format("Taxes Owed: $%.2f\nUnemployment Insurance Benefits: $%.2f", taxPayable, eiBenefit);
-            }
-
-            // Create a new window to display the result
-            Stage resultStage = new Stage();
-            Label resultLabel = new Label(result);
-            Group resultRoot = new Group(resultLabel);
-            Scene resultScene = new Scene(resultRoot, 300, 150);
-            resultStage.setScene(resultScene);
-            resultStage.show();
+            TaxController.validateT4(income, taxDeducted, cpp, eiPremium, rpp, insurable, union, donations);
         });
 
         // Create an HBox to hold the button
