@@ -25,6 +25,9 @@ public class Registration extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+	InputValidator validator = new InputValidator();
+
+
 		Label firstNameLabel = new Label("First Name");
 
 		TextField firstNameField = new TextField();
@@ -48,6 +51,13 @@ public class Registration extends Application {
 		Label dobLabel = new Label("Date of Birth");
 		TextField dobField = new TextField();
 		dobField.setPromptText("yyyy-mm-dd");
+
+
+		dobField.setTextFormatter(validator.isoDateFormatter);
+
+		dobField.setOnKeyTyped(e -> {
+			validator.validateDate(dobField);
+		});
 
 	VBox dobBox = new VBox();
 	dobBox.getChildren().addAll(dobLabel, dobField);
