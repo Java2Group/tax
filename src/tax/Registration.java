@@ -1,7 +1,6 @@
 
 package tax;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,10 +17,9 @@ import javafx.stage.Stage;
  *
  * @author Brandon Yaeck
  */
-public class Registration extends Application {
+public class Registration {
 
-    @Override
-    public void start(Stage primaryStage) {
+    public Scene getScene(Stage currentStage) {
 
 	InputValidator validator = new InputValidator();
 
@@ -169,6 +167,7 @@ public class Registration extends Application {
 	UserList userList = new UserList();
         registerButton.setOnAction(e -> {
 		userList.createUser(true, firstNameField.getText(), lastNameField.getText(), dobField.getText(), streetField.getText(), cityField.getText(), regionField.getText(), postField.getText(), phoneField.getText(), emailField.getText(), passwordField.getText());
+		currentStage.setScene(new Login().getScene(currentStage));
 	});
 
 	
@@ -185,14 +184,7 @@ public class Registration extends Application {
 	outerPanel.getChildren().addAll(alignPanel);
 
         Scene scene = new Scene(outerPanel);
-
-        primaryStage.setTitle("User Registration");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+	
+	return scene;
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }
