@@ -54,6 +54,7 @@ public class InputValidator {
 			field.positionCaret(originalCaretPosition);
 		}
 
+		// only allow year to be between oldest living person's birth year and the current year
 		if (input.matches("[0-9]{4}.*")) {
 			if (Integer.parseInt(input.substring(0, 4)) > Year.now().getValue()) {
 				System.out.println("Year cannot be greater than the current year.");
@@ -61,7 +62,6 @@ public class InputValidator {
 			} else if (Integer.parseInt(input.substring(0, 4)) < OLDEST_BIRTH_YEAR) {
 				System.out.println("Year cannot be before " + OLDEST_BIRTH_YEAR + ".");
 			}
-
 		}
 
 		// check if actual valid date

@@ -79,7 +79,7 @@ public class Registration extends Application {
 	cityBox.getChildren().addAll(cityLabel, cityField);
 
 
-		Label regionLabel = new Label("Province");
+		Label regionLabel = new Label("Province / Territory");
 
 		TextField regionField = new TextField();
 		regionField.setPromptText("");
@@ -166,8 +166,9 @@ public class Registration extends Application {
 	
 	Button registerButton = new Button("Register");
 
+	UserList userList = new UserList();
         registerButton.setOnAction(e -> {
-		System.out.println("REGISTER");
+		userList.createUser(true, firstNameField.getText(), lastNameField.getText(), dobField.getText(), streetField.getText(), cityField.getText(), regionField.getText(), postField.getText(), phoneField.getText(), emailField.getText(), passwordField.getText());
 	});
 
 	
