@@ -38,6 +38,8 @@ public class Login {
 		loginButton.setOnAction(e -> {
 			System.out.println(emailField.getText());
 			System.out.println(passwordField.getText());
+			currentStage.setTitle("T4");
+			currentStage.setScene(new T4().getScene(currentStage));
 		});
 
 		Button registerLink = new Button("Don't have an account? Click here to register.");
