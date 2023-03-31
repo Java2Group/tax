@@ -18,10 +18,10 @@ import javafx.stage.Stage;
  *
  * @author XeroS
  */
-public class T5 extends Application {
+public class T5 {
     
-    @Override
-    public void start(Stage primaryStage) {
+    
+    public Scene getScene(Stage currentStage) {
         Label label1 = new Label("Actual eligible dividends");
         TextField eligibleDividends = new TextField();
         VBox vbox1 = new VBox(5, label1, eligibleDividends);
@@ -94,7 +94,7 @@ public class T5 extends Application {
         grid.add(vbox8, 1, 3);
 
         // Create the calculate button
-        Button calcButton = new Button("Calculate");
+        Button calcButton = new Button("Next");
         calcButton.setOnAction(e -> {
             TaxController.validateT5(eligibleDividends, otherDividends, eligibleCredit, interest, eligibleTax, otherTax, otherCredit, gains, certify);
         });
@@ -116,11 +116,7 @@ public class T5 extends Application {
         // Create the Scene and set it on the Stage
         Scene scene = new Scene(root, 500, 400);
 
-        primaryStage.setScene(scene);
-
-        primaryStage.setTitle(
-                "TaxSoftware");
-        primaryStage.show();
+        return scene;
     }
 
     public static void main(String[] args) {

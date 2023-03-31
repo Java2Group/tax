@@ -18,10 +18,10 @@ import javafx.stage.Stage;
  *
  * @author Michael Sousa
  */
-public class T2202 extends Application {
+public class T2202 {
     
-    @Override
-    public void start(Stage primaryStage) {
+    
+    public Scene getScene(Stage currentStage) {
         Label label1 = new Label("Name of educational institution");
         TextField institution = new TextField();
         VBox vbox1 = new VBox(5, label1, institution);
@@ -110,11 +110,7 @@ public class T2202 extends Application {
         // Create the Scene and set it on the Stage
         Scene scene = new Scene(root, 500, 400);
 
-        primaryStage.setScene(scene);
-
-        primaryStage.setTitle(
-                "TaxSoftware");
-        primaryStage.show();
+       return scene;
     }
 
     public static void main(String[] args) {
