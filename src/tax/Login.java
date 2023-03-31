@@ -2,6 +2,7 @@ package tax;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -41,12 +42,19 @@ public Scene getScene(Stage currentStage) {
 
 
 	Button registerLink = new Button("Don't have an account? Click here to register.");
-	registerLink.setStyle("-fx-background-color: rgba(0,0,0,0)");
+	registerLink.setStyle("-fx-background-color: rgba(0,0,0,0); -fx-text-fill: rgba(0,0,0,100)");
 
         registerLink.setOnAction(e -> {
 		
 		currentStage.setTitle("User Registration");
 		currentStage.setScene(new Registration().getScene(currentStage));
+	});
+	registerLink.setOnMouseEntered(e -> {
+		registerLink.setStyle("-fx-background-color: rgba(0,0,0,0); -fx-text-fill: rgba(0,0,255,100)");
+		registerLink.setCursor(Cursor.HAND);
+	});
+	registerLink.setOnMouseExited(e -> {
+		registerLink.setStyle("-fx-background-color: rgba(0,0,0,0); -fx-text-fill: rgba(0,0,0,100)");
 	});
 
 
