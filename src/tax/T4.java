@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
- */
 package tax;
 
 import javafx.application.Application;
@@ -10,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -19,7 +16,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author XeroS
+ * @author Michael Sousa
  */
 public class T4 extends Application {
 
@@ -72,6 +69,13 @@ public class T4 extends Application {
         VBox vbox8 = new VBox(5, label8, donations);
         vbox8.setAlignment(Pos.CENTER_LEFT);
         vbox8.setPadding(new Insets(10, 20, 10, 20));
+        
+        Label label9 = new Label("I certify that the information given on this return is correct and complete.");
+        CheckBox certify = new CheckBox();
+        HBox hbox = new HBox(5, certify,label9);
+        hbox.setAlignment(Pos.CENTER_LEFT);
+        hbox.setPadding(new Insets(10, 20, 10, 20));
+        hbox.setAlignment(Pos.CENTER);
 
         // Create a GridPane to hold the VBox nodes
         GridPane grid = new GridPane();
@@ -92,7 +96,7 @@ public class T4 extends Application {
         // Create the calculate button
         Button calcButton = new Button("Calculate");
         calcButton.setOnAction(e -> {
-            TaxController.validateT4(income, taxDeducted, cpp, eiPremium, rpp, insurable, union, donations);
+            TaxController.validateT4(income, taxDeducted, cpp, eiPremium, rpp, insurable, union, donations, certify);
         });
 
         // Create an HBox to hold the button
@@ -107,7 +111,7 @@ public class T4 extends Application {
         VBox root = new VBox();
 
         root.getChildren()
-                .addAll(grid, buttonBox);
+                .addAll(grid, hbox, buttonBox);
 
         // Create the Scene and set it on the Stage
         Scene scene = new Scene(root, 500, 400);
