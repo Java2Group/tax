@@ -94,21 +94,22 @@ public class TaxController {
         int studentNumValue = Integer.parseInt(studentNum.getText());
         int fullMonthsValue = Integer.parseInt(fullMonths.getText());
         int partMonthsValue = Integer.parseInt(partMonths.getText());
-        double tutionValue = Double.parseDouble(tuition.getText());
-        
-        calculateTax(totalIncome,taxDeductedValue,cppValue,eiPremiumValue,rppValue,insurableValue,unionValue,donationsValue,eligibleDividendsValue,otherDividendsValue,
-                    eligibleCreditValue,interestValue,eligibleTaxValue,otherTaxValue,otherCreditValue,gainsValue,studentNumValue,fullMonthsValue,partMonthsValue, tutionValue);
+        double tuitionValue = Double.parseDouble(tuition.getText());
+
+        calculateTax(totalIncome, taxDeductedValue, cppValue, eiPremiumValue, rppValue, insurableValue, unionValue, donationsValue, eligibleDividendsValue, otherDividendsValue,
+                eligibleCreditValue, interestValue, eligibleTaxValue, otherTaxValue, otherCreditValue, gainsValue, studentNumValue, fullMonthsValue, partMonthsValue, tuitionValue);
 
     }
 
     // Method to calculate the taxes owed based on the information provided from the form
     public static void calculateTax(double totalIncome, double taxDeductedValue, double cppValue, double eiPremiumValue, double rppValue, double insurableValue, double unionValue,
             double donationsValue, double eligibleDividendsValue, double otherDividendsValue, double eligibleCreditValue, double interestValue, double eligibleTaxValue,
-            double otherTaxValue, double otherCreditValue, double gainsValue, int studentNumValue, int fullMonthsValue, int partMonthsValue, double tutionValue) {
+            double otherTaxValue, double otherCreditValue, double gainsValue, int studentNumValue, int fullMonthsValue, int partMonthsValue, double tuitionValue) {
 
         // Calculate net income
-        double netIncome = totalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue + eligibleDividendsValue + otherDividendsValue + gainsValue + eligibleTaxValue + otherTaxValue + eligibleCreditValue + otherCreditValue);
-
+        double finalIncome = totalIncome + gainsValue + interestValue + eligibleTaxValue + otherTaxValue;
+        double netIncome = finalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue + eligibleDividendsValue + otherDividendsValue + eligibleCreditValue + otherCreditValue);
+        double taxCredits = (tuitionValue * 0.15) + (eligibleCreditValue * 0.150198) + (otherCreditValue * 0.90301);
         // Calculate federal and provincial tax
         double totalTax;
         double federalTax;
@@ -134,18 +135,26 @@ public class TaxController {
             federalTax = (netIncome - 210371) * 0.33 + 31114.76;
             provincialTax = (netIncome - 210371) * 0.1316 + 8392.67;
         }
-
-        totalTax = federalTax + provincialTax - taxDeductedValue;
-
         
+        totalTax = federalTax + provincialTax -taxDeductedValue;
+        
+        if(totalTax - taxCredits >= 0){
+            totalTax = federalTax + provincialTax - taxDeductedValue - taxCredits;
+            taxCredits = 0;
+        }else{
+            taxCredits = taxCredits - totalTax;
+            totalTax = 0;
+        }
+        
+
         // Create a formatted string with the result
         String result;
         if (totalTax < 0) {
             result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f", totalTax * -1, eiBenefit);
         } else {
-            result = String.format("Taxes Owed: $%.2f (Provincial: $%.2f  Federal: $%.2f)\nUnemployment Insurance Benefits: $%.2f", totalTax, provincialTax, federalTax, eiBenefit);
+            result = String.format("Taxes Owed: $%.2f (Provincial: $%.2f  Federal: $%.2f)\nUnemployment Insurance Benefits: $%.2f\nTax Credits remaining for next year: $%.2f", totalTax, provincialTax, federalTax, eiBenefit, taxCredits);
         }
-       
+
         // Create a new window to display the result
         Stage resultStage = new Stage();
         Label resultLabel = new Label(result);
@@ -154,20 +163,20 @@ public class TaxController {
         resultStage.setScene(resultScene);
         resultStage.show();
     }
-    
+
     public static void clearT4(TextField income, TextField taxDeducted, TextField cpp, TextField eiPremium, TextField rpp, TextField insurable, TextField union, TextField donations) {
-         income.clear();
-         taxDeducted.clear();
-         cpp.clear();
-         eiPremium.clear();
-         rpp.clear();
-         insurable.clear();
-         union.clear();
-         donations.clear();
+        income.clear();
+        taxDeducted.clear();
+        cpp.clear();
+        eiPremium.clear();
+        rpp.clear();
+        insurable.clear();
+        union.clear();
+        donations.clear();
     }
-    
+
     public static void clearT5(TextField eligibleDividends, TextField otherDividends, TextField eligibleCredit, TextField interest, TextField eligibleTax, TextField otherTax, TextField otherCredit,
-            TextField gains){
+        TextField gains) {
         eligibleDividends.clear();
         otherDividends.clear();
         eligibleCredit.clear();
@@ -177,8 +186,8 @@ public class TaxController {
         otherCredit.clear();
         gains.clear();
     }
-    
-    public static void clearT2202(TextField institution, TextField studentNum, TextField fullMonths, TextField partMonths, TextField program, TextField address, TextField tuition){
+
+    public static void clearT2202(TextField institution, TextField studentNum, TextField fullMonths, TextField partMonths, TextField program, TextField address, TextField tuition) {
         institution.clear();
         studentNum.clear();
         fullMonths.clear();
@@ -188,4 +197,3 @@ public class TaxController {
         tuition.clear();
     }
 }
-  
