@@ -4,9 +4,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -73,7 +75,20 @@ public class TaxController {
             alert.showAndWait();
             return;
         }
-
+        
+        if (Double.parseDouble(income.getText()) < 0 || Double.parseDouble(taxDeducted.getText()) < 0 || Double.parseDouble(cpp.getText()) < 0 ||
+                Double.parseDouble(eiPremium.getText()) < 0 || Double.parseDouble(rpp.getText()) < 0 || Double.parseDouble(insurable.getText()) < 0 ||
+                Double.parseDouble(union.getText()) < 0 || Double.parseDouble(donations.getText()) < 0 || Double.parseDouble(eligibleDividends.getText()) < 0 ||
+                Double.parseDouble(otherDividends.getText()) < 0 || Double.parseDouble(eligibleCredit.getText()) < 0 || Double.parseDouble(interest.getText()) < 0 ||
+                Double.parseDouble(eligibleTax.getText()) < 0 || Double.parseDouble(otherTax.getText()) < 0 || Double.parseDouble(otherCredit.getText()) < 0 ||
+                Double.parseDouble(gains.getText()) < 0) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Negative values are not allowed");
+            alert.showAndWait();
+            return;
+        }
+        
         // Parse input values
         double totalIncome = Double.parseDouble(income.getText());
         double taxDeductedValue = Double.parseDouble(taxDeducted.getText());
@@ -157,8 +172,12 @@ public class TaxController {
 
         // Create a new window to display the result
         Stage resultStage = new Stage();
+        Button saveBtn = new Button("Save");
         Label resultLabel = new Label(result);
-        Group resultRoot = new Group(resultLabel);
+        VBox resultRoot = new VBox(resultLabel, saveBtn);
+        saveBtn.setOnAction(e -> {
+            
+        });
         Scene resultScene = new Scene(resultRoot, 500, 150);
         resultStage.setScene(resultScene);
         resultStage.show();
