@@ -12,7 +12,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        primaryStage.setTitle("Tax Login");
         primaryStage.setScene(new Login().getScene(primaryStage));
         primaryStage.show();
     }

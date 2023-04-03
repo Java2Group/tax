@@ -38,15 +38,14 @@ public class Login {
 		loginButton.setOnAction(e -> {
 			System.out.println(emailField.getText());
 			System.out.println(passwordField.getText());
-			currentStage.setTitle("T4");
-			currentStage.setScene(new T4().getScene(currentStage));
+			//currentStage.setTitle("T4");
+			//currentStage.setScene(new T4().getScene(currentStage));
 		});
 
 		Button registerLink = new Button("Don't have an account? Click here to register.");
 		registerLink.setStyle("-fx-background-color: rgba(0,0,0,0); -fx-text-fill: rgba(0,0,0,100)");
 
 		registerLink.setOnAction(e -> {
-			currentStage.setTitle("User Registration");
 			currentStage.setScene(new Registration().getScene(currentStage));
 		});
 		registerLink.setOnMouseEntered(e -> {
@@ -71,6 +70,7 @@ public class Login {
 
 		Scene scene = new Scene(outerPanel);
 
+		currentStage.setTitle("Tax Login");
 		return scene;
 	}
 }
