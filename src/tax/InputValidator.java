@@ -17,6 +17,7 @@ import javafx.scene.control.TextFormatter;
 public class InputValidator {
 
 	final static int OLDEST_BIRTH_YEAR = 1907;
+	final static String[] regionList = {"Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"};
 
 	private boolean noEmpty;
 	private boolean dobValid;

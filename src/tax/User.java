@@ -1,5 +1,7 @@
 package tax;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Brandon Yaeck
@@ -22,27 +24,16 @@ public class User {
 
 	}
 
-	/*
-	public User(String firstName, String lastName, int dateOfBirth, String streetAddress, String city, String region, String postalCode, String phoneNumber, String emailAddress, String password) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.streetAddress = streetAddress;
-		this.city = city;
-		this.region = region;
-		this.postalCode = postalCode;
-		this.phoneNumber = phoneNumber;
-		this.emailAddress = emailAddress;
-		this.password = password;
-	}
-	*/
-
 	public String getFirstName() {
 		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		if (firstName != null && !firstName.trim().isEmpty()) {
+			this.firstName = firstName;
+		} else {
+			throw new IllegalArgumentException("First name cannot be empty.");
+		}
 	}
 
 	public String getLastName() {
@@ -50,7 +41,11 @@ public class User {
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		if (lastName != null && !lastName.trim().isEmpty()) {
+			this.lastName = lastName;
+		} else {
+			throw new IllegalArgumentException("Error: Last name cannot be empty.");
+		}
 	}
 
 	public int getDateOfBirth() {
@@ -58,8 +53,10 @@ public class User {
 	}
 
 	public void setDateOfBirth(String dateOfBirth) {
-		if (dateOfBirth.length() > 0) {
+		if (dateOfBirth != null && dateOfBirth.matches("[0-9]{4}-?[0-9]{2}-?[0-9]{2}")) {
 			this.dateOfBirth = Integer.parseInt(dateOfBirth.replaceAll("-",""));
+		} else {
+			throw new IllegalArgumentException("Date of birth must be yyyy-mm-dd.");
 		}
 	}
 
@@ -68,7 +65,11 @@ public class User {
 	}
 
 	public void setStreetAddress(String streetAddress) {
-		this.streetAddress = streetAddress;
+		if (streetAddress != null && !streetAddress.trim().isEmpty()) {
+			this.streetAddress = streetAddress;
+		} else {
+			throw new IllegalArgumentException("Street address cannot be empty.");
+		}
 	}
 
 	public String getCity() {
@@ -76,7 +77,11 @@ public class User {
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		if (city != null && !city.trim().isEmpty()) {
+			this.city = city;
+		} else {
+			throw new IllegalArgumentException("City cannot be empty.");
+		}
 	}
 
 	public String getRegion() {
@@ -84,7 +89,11 @@ public class User {
 	}
 
 	public void setRegion(String region) {
-		this.region = region;
+		if (region != null && Arrays.asList(InputValidator.regionList).contains(region)) {
+			this.region = region;
+		} else {
+			throw new IllegalArgumentException("Region must be a valid Canadian province or territory.");
+		}
 	}
 
 	public String getPostalCode() {
@@ -92,7 +101,11 @@ public class User {
 	}
 
 	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+		if (postalCode != null && postalCode.matches("[A-Z][0-9][A-Z] [0-9][A-Z][0-9]")) {
+			this.postalCode = postalCode;
+		} else {
+			throw new IllegalArgumentException("Postal code must be in format A1A 1A1.");
+		}
 	}
 
 	public String getPhoneNumber() {
@@ -100,7 +113,11 @@ public class User {
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		if (phoneNumber != null && phoneNumber.trim().length() >= 7 && phoneNumber.trim().length() <= 15 && phoneNumber.matches("[0-9]*")) {
+			this.phoneNumber = phoneNumber;
+		} else {
+			throw new IllegalArgumentException("Phone number must contain 7-15 digits.");
+		}
 	}
 
 	public String getEmailAddress() {
@@ -108,7 +125,11 @@ public class User {
 	}
 
 	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+		if (emailAddress != null && emailAddress.trim().matches(".+@.+")) {
+			this.emailAddress = emailAddress;
+		} else {
+			throw new IllegalArgumentException("Email address must be formatted as something@something.");
+		}
 	}
 
 	public String getPassword() {
@@ -116,7 +137,11 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		if (password != null && password.trim().length() >= 8) {
+			this.password = password;
+		} else {
+			throw new IllegalArgumentException("Password must be at least 8 characters.");
+		}
 	}
 
 	@Override

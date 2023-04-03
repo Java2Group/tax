@@ -116,10 +116,9 @@ public class Registration {
 
 		Label regionLabel = new Label("Province / Territory");
 
-		String[] regionList = {"Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"};
 		ComboBox<String> regionField = new ComboBox<String>();
-		regionField.setVisibleRowCount(regionList.length);
-		regionField.getItems().addAll(regionList);
+		regionField.setVisibleRowCount(InputValidator.regionList.length);
+		regionField.getItems().addAll(InputValidator.regionList);
 		regionField.setPromptText("Select");
 		// changes size when clicking for some reason so enforcing a consistent size
 		regionField.setMinWidth(200);
@@ -173,6 +172,11 @@ public class Registration {
 
 		phoneField.setTextFormatter(validator.phoneFormatter);
 
+		// clear empty field error styling if input
+		phoneField.setOnKeyTyped(e -> {
+			phoneField.setStyle("");
+		});
+
 	VBox phoneBox = new VBox();
 	phoneBox.getChildren().addAll(phoneLabel, phoneField);
 
@@ -190,8 +194,8 @@ public class Registration {
 		emailErrorBox.setAlignment(Pos.BOTTOM_LEFT);
 
 		// clear empty field error styling if input
-		phoneField.setOnKeyTyped(e -> {
-			phoneField.setStyle("");
+		emailField.setOnKeyTyped(e -> {
+			emailField.setStyle("");
 		});
 
 	VBox emailBox = new VBox();
