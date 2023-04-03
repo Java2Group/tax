@@ -88,7 +88,7 @@ public class UserList {
 
 		try (Scanner reader = new Scanner(file);) {
 			while (reader.hasNext()) {
-				String[] fields = reader.nextLine().split(",");
+				String[] fields = reader.nextLine().split("\t");
 				createUser(false, fields);
 			}
 		}

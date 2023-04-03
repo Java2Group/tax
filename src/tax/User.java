@@ -146,7 +146,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return firstName + "," + lastName + "," + dateOfBirth + "," + streetAddress + "," + city + "," + region + "," + postalCode + "," + phoneNumber + "," + emailAddress + "," + password;
+		return firstName + "\t" + lastName + "\t" + dateOfBirth + "\t" + streetAddress + "\t" + city + "\t" + region + "\t" + postalCode + "\t" + phoneNumber + "\t" + emailAddress + "\t" + password;
 	}
 
 
