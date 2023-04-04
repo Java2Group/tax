@@ -20,8 +20,7 @@ import javafx.stage.Stage;
  */
 public class TaxForm extends Application {
 
-    @Override
-    public void start(Stage primaryStage) {
+    public Scene getScene(Stage currentStage) {
         Label label1 = new Label("Employment Income");
         TextField income = new TextField("0");
         VBox vbox1 = new VBox(5, label1, income);
@@ -289,9 +288,15 @@ public class TaxForm extends Application {
         // Create the Scene and set it on the Stage
         Scene scene = new Scene(root, 1400, 600);
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+	currentStage.setTitle("Tax Input");
+	return scene;
+    }
 
+    @Override
+    public void start(Stage primaryStage) {
+
+        primaryStage.setScene(getScene(primaryStage));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

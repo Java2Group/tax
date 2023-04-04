@@ -5,7 +5,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Scanner;
 
 /**
@@ -14,33 +17,61 @@ import java.util.Scanner;
  */
 public class UserList {
 
-	ArrayList<User> userList = new ArrayList<User>();
+	// same ArrayList is shared as only one is ever used
+	static ArrayList<User> userList = new ArrayList<User>();
 
-	public UserList() {
-		readFromFile();
-	}
+	PasswordHandler passwordHandler = new PasswordHandler();
 
-	public User createUser(boolean write, String ... input) {
+
+	public void createUser(boolean write, String ... input) {
 		User user = new User();
 
-		user.setFirstName(input[0]);
-		user.setLastName(input[1]);
-		user.setDateOfBirth(input[2]);
-		user.setStreetAddress(input[3]);
-		user.setCity(input[4]);
-		user.setRegion(input[5]);
-		user.setPostalCode(input[6]);
-		user.setPhoneNumber(input[7]);
-		user.setEmailAddress(input[8]);
-		user.setPassword(input[9]);
+		try {
+			user.setFirstName(input[0]);
+			user.setLastName(input[1]);
+			user.setDateOfBirth(input[2]);
+			user.setStreetAddress(input[3]);
+			user.setCity(input[4]);
+			user.setRegion(input[5]);
+			user.setPostalCode(input[6]);
+			user.setPhoneNumber(input[7]);
 
-		userList.add(user);
+			if (matchEmail(input[8]) == null) {
+				user.setEmailAddress(input[8]);
+			} else {
+				throw new IllegalArgumentException("Duplicate email address found: " + input[8]);
+			}
 
-		if (write) {
-			writeToFile(user);
+			if (write) {
+				// base64 uses a-zA-Z0-9 + / =
+				byte[] salt = passwordHandler.createSalt();
+				user.setPasswordSalt(Base64.getEncoder().encodeToString(salt));
+
+				try {
+					byte[] passwordHash = passwordHandler.createPasswordHash(input[9], salt);
+					user.setPasswordHash(Base64.getEncoder().encodeToString(passwordHash));
+				}
+				catch (NoSuchAlgorithmException | InvalidKeySpecException exception) {
+					System.out.println(exception.getMessage());
+					Popup.error(exception, "Error creating password hash", "Failed to create password hash: ");
+				}
+
+				userList.add(user);
+				writeToFile(user);
+			} else {
+				user.setPasswordSalt(input[9]);
+				user.setPasswordHash(input[10]);
+				userList.add(user);
+			}
 		}
-
-		return user;
+		catch (IllegalArgumentException exception) {
+			System.out.println(exception.getMessage());
+			Popup.error(exception, "Error importing users", "Failed to process some users: ");
+		}
+		catch (ArrayIndexOutOfBoundsException exception) {
+			System.out.println(exception.getMessage());
+			Popup.error(exception, "Error importing users", "Failed to process some users: users with incorrect amount of entries not processed.\n");
+		}
 	}
 
 	private void writeToFile(User user) {
@@ -52,12 +83,13 @@ public class UserList {
 			writer.println(user);
 			System.out.println(user);
 		}
-		catch (IOException e) {
-			e.printStackTrace();
+		catch (IOException exception) {
+			Popup.error(exception, "Error writing users file", "");
+			exception.printStackTrace();
 		}
 	}
 
-	private void readFromFile() {
+	public void readFromFile() {
 		userList.clear();
 
 		File file = new File("users.txt");
@@ -67,19 +99,28 @@ public class UserList {
 
 		try (Scanner reader = new Scanner(file);) {
 			while (reader.hasNext()) {
-				String[] fields = reader.nextLine().split(",");
+				String[] fields = reader.nextLine().split("\t");
 				createUser(false, fields);
 			}
 		}
-		catch (IOException e) {
-			e.printStackTrace();
+		catch (IOException exception) {
+			Popup.error(exception, "Error reading users file", "");
+			exception.printStackTrace();
 		}
-
 
 		for (User each: userList) {
 			System.out.println(each);
 		}
 		System.out.println();
 
+	}
+
+	public User matchEmail(String emailInput) {
+		for (User user: UserList.userList) {
+			if (user.getEmailAddress().equals(emailInput)) {
+				return user;
+			}
+		}
+		return null;
 	}
 }
