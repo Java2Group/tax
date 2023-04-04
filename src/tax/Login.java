@@ -109,7 +109,7 @@ public class Login {
 		outerPanel.setPadding(new Insets(20, 20, 20, 20));
 		outerPanel.getChildren().addAll(emailBox, passwordBox, submitPanel);
 
-		Scene scene = new Scene(outerPanel);
+		Scene scene = new Scene(outerPanel, 1400, 600);
 
 		currentStage.setTitle("Tax Login");
 		return scene;
