@@ -1,5 +1,7 @@
 package tax;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -75,20 +77,20 @@ public class TaxController {
             alert.showAndWait();
             return;
         }
-        
-        if (Double.parseDouble(income.getText()) < 0 || Double.parseDouble(taxDeducted.getText()) < 0 || Double.parseDouble(cpp.getText()) < 0 ||
-                Double.parseDouble(eiPremium.getText()) < 0 || Double.parseDouble(rpp.getText()) < 0 || Double.parseDouble(insurable.getText()) < 0 ||
-                Double.parseDouble(union.getText()) < 0 || Double.parseDouble(donations.getText()) < 0 || Double.parseDouble(eligibleDividends.getText()) < 0 ||
-                Double.parseDouble(otherDividends.getText()) < 0 || Double.parseDouble(eligibleCredit.getText()) < 0 || Double.parseDouble(interest.getText()) < 0 ||
-                Double.parseDouble(eligibleTax.getText()) < 0 || Double.parseDouble(otherTax.getText()) < 0 || Double.parseDouble(otherCredit.getText()) < 0 ||
-                Double.parseDouble(gains.getText()) < 0) {
+
+        if (Double.parseDouble(income.getText()) < 0 || Double.parseDouble(taxDeducted.getText()) < 0 || Double.parseDouble(cpp.getText()) < 0
+                || Double.parseDouble(eiPremium.getText()) < 0 || Double.parseDouble(rpp.getText()) < 0 || Double.parseDouble(insurable.getText()) < 0
+                || Double.parseDouble(union.getText()) < 0 || Double.parseDouble(donations.getText()) < 0 || Double.parseDouble(eligibleDividends.getText()) < 0
+                || Double.parseDouble(otherDividends.getText()) < 0 || Double.parseDouble(eligibleCredit.getText()) < 0 || Double.parseDouble(interest.getText()) < 0
+                || Double.parseDouble(eligibleTax.getText()) < 0 || Double.parseDouble(otherTax.getText()) < 0 || Double.parseDouble(otherCredit.getText()) < 0
+                || Double.parseDouble(gains.getText()) < 0) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Negative values are not allowed");
             alert.showAndWait();
             return;
         }
-        
+
         // Parse input values
         double totalIncome = Double.parseDouble(income.getText());
         double taxDeductedValue = Double.parseDouble(taxDeducted.getText());
@@ -123,7 +125,7 @@ public class TaxController {
 
         // Calculate net income
         double finalIncome = totalIncome + gainsValue + interestValue + eligibleTaxValue + otherTaxValue;
-        double netIncome = finalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue + eligibleDividendsValue + otherDividendsValue + eligibleCreditValue + otherCreditValue);
+        double netIncome = finalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue);
         double taxCredits = (tuitionValue * 0.15) + (eligibleCreditValue * 0.150198) + (otherCreditValue * 0.90301);
         // Calculate federal and provincial tax
         double totalTax;
@@ -150,17 +152,16 @@ public class TaxController {
             federalTax = (netIncome - 210371) * 0.33 + 31114.76;
             provincialTax = (netIncome - 210371) * 0.1316 + 8392.67;
         }
-        
-        totalTax = federalTax + provincialTax -taxDeductedValue;
-        
-        if(totalTax - taxCredits >= 0){
+
+        totalTax = federalTax + provincialTax - taxDeductedValue;
+
+        if (totalTax - taxCredits >= 0) {
             totalTax = federalTax + provincialTax - taxDeductedValue - taxCredits;
             taxCredits = 0;
-        }else{
+        } else {
             taxCredits = taxCredits - totalTax;
             totalTax = 0;
         }
-        
 
         // Create a formatted string with the result
         String result;
@@ -176,7 +177,21 @@ public class TaxController {
         Label resultLabel = new Label(result);
         VBox resultRoot = new VBox(resultLabel, saveBtn);
         saveBtn.setOnAction(e -> {
-            
+            try {
+                // Open a file named "tax_result.txt" in write mode
+                FileWriter writer = new FileWriter("taxresult.txt");
+                // Write the result string to the file
+                writer.write(result);
+                // Close the file
+                writer.close();
+                System.out.println("Result saved to file: taxresult.txt");
+            } catch (IOException exception) {
+                // Show an error message if there was an error writing to the file
+             Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error saving result to file: " + exception.getMessage());
+            alert.showAndWait();
+            }
         });
         Scene resultScene = new Scene(resultRoot, 500, 150);
         resultStage.setScene(resultScene);
@@ -194,8 +209,8 @@ public class TaxController {
         donations.clear();
     }
 
-    public static void clearT5(TextField eligibleDividends, TextField otherDividends, TextField eligibleCredit, TextField interest, TextField eligibleTax, TextField otherTax, TextField otherCredit,
-        TextField gains) {
+    public static void clearT5(TextField eligibleDividends, TextField otherDividends, TextField eligibleCredit, TextField interest, TextField eligibleTax,
+            TextField otherTax, TextField otherCredit, TextField gains) {
         eligibleDividends.clear();
         otherDividends.clear();
         eligibleCredit.clear();
@@ -215,4 +230,5 @@ public class TaxController {
         program.clear();
         tuition.clear();
     }
+
 }
