@@ -18,7 +18,8 @@ public class User {
 	// phone numbers should be String due to the possibility of leading 0s
 	private String phoneNumber;
 	private String emailAddress;
-	private String password;
+	private String passwordSalt;
+	private String passwordHash;
 
 	public User() {
 
@@ -132,21 +133,33 @@ public class User {
 		}
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPasswordSalt() {
+		return passwordSalt;
 	}
 
-	public void setPassword(String password) {
-		if (password != null && password.trim().length() >= 8) {
-			this.password = password;
+	public void setPasswordSalt(String passwordSalt) {
+		if (passwordSalt != null && !passwordSalt.trim().isEmpty()) {
+			this.passwordSalt = passwordSalt;
 		} else {
-			throw new IllegalArgumentException("Password must be at least 8 characters.");
+			throw new IllegalArgumentException("Password salt missing.");
+		}
+	}
+
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		if (passwordHash != null && !passwordHash.trim().isEmpty()) {
+			this.passwordHash = passwordHash;
+		} else {
+			throw new IllegalArgumentException("Password hash missing.");
 		}
 	}
 
 	@Override
 	public String toString() {
-		return firstName + "\t" + lastName + "\t" + dateOfBirth + "\t" + streetAddress + "\t" + city + "\t" + region + "\t" + postalCode + "\t" + phoneNumber + "\t" + emailAddress + "\t" + password;
+		return firstName + "\t" + lastName + "\t" + dateOfBirth + "\t" + streetAddress + "\t" + city + "\t" + region + "\t" + postalCode + "\t" + phoneNumber + "\t" + emailAddress + "\t" + passwordSalt + "\t" + passwordHash;
 	}
 
 

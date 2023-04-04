@@ -244,15 +244,19 @@ public class InputValidator {
 	}
 
 	public void validateEmail(TextField field, Label error) {
+		field.setStyle("-fx-text-box-border: red; -fx-focus-color: red");
+		emailValid = false;
+
+		// check if email taken
+		if (new UserList().matchEmail(field.getText()) != null) {
+			error.setText("Email address in use.");
 		// NOTE: Email validation is actually very complex. The only consistent requirement is that it contains something@something. Beyond that, the best way to validate is to send an email with a verification code.
-		if (field.getText().matches(".+@.+")) {
+		} else if (!field.getText().matches(".+@.+")) {
+			error.setText("Invalid email format.");
+		} else {
 			error.setText("");
 			field.setStyle("");
 			emailValid = true;
-		} else {
-			error.setText("Invalid email format.");
-			field.setStyle("-fx-text-box-border: red; -fx-focus-color: red");
-			emailValid = false;
 		}
 	}
 

@@ -304,8 +304,9 @@ public class Registration {
 		validator.validateEmail(emailField, emailError);
 		validator.validatePhone(phoneField, phoneError);
 
-		if (validator.allValid(overallError, tosCheck, dobField, dobError, postField, postError, regionField, firstNameField, lastNameField, streetField, cityField, emailField)) {
+		if (validator.allValid(overallError, tosCheck, dobField, dobError, postField, postError, regionField, firstNameField, lastNameField, streetField, cityField)) {
 			userList.createUser(true, firstNameField.getText(), lastNameField.getText(), dobField.getText(), streetField.getText(), cityField.getText(), regionField.getValue(), postField.getText(), phoneField.getText(), emailField.getText(), passwordField.getText());
+
 			currentStage.setScene(new Login().getScene(currentStage));
 		}
 	});
