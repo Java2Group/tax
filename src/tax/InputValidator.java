@@ -46,7 +46,7 @@ public class InputValidator {
 		}
 
 		if (region.getValue() == null) {
-			region.setStyle("-fx-inner-border: red");
+			region.setStyle("-fx-outer-border: red");
 			error.setText("All fields required.");
 			noEmpty = false;
 		} else {
