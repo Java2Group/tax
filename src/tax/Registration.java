@@ -286,14 +286,15 @@ public class Registration {
 	tosArea.getChildren().addAll(tosCheck, tosLink);
 	
 	Button registerButton = new Button("Register");
-	//registerButton.setDisable(true);
+
+	Button cancelButton = new Button("Cancel");
 
 	Label overallError = new Label();
 	overallError.setStyle("-fx-text-fill: red;");
 
 	HBox registerArea = new HBox(15);
 	registerArea.setAlignment(Pos.CENTER_LEFT);
-	registerArea.getChildren().addAll(registerButton, overallError);
+	registerArea.getChildren().addAll(registerButton, cancelButton, overallError);
 
 
 
@@ -311,6 +312,9 @@ public class Registration {
 		}
 	});
 
+        cancelButton.setOnAction(e -> { 
+			currentStage.setScene(new Login().getScene(currentStage));
+	});
 
 	
 	VBox submitPanel = new VBox(10);
