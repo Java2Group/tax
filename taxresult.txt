@@ -1,3 +1,4 @@
-Taxes Owed: $0.00 (Provincial: $0.00  Federal: $0.00)
+Tax Refund: $20.00
 Unemployment Insurance Benefits: $0.00
-Tax Credits remaining for next year: $0.00
+Tax Credits: $0.00
+Tax Credits Remaining: $20.00

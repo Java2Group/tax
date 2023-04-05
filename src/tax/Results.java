@@ -31,6 +31,8 @@ public class Results extends Application {
         Label resultLabel = new Label(Calculate.getResult());
         if(resultLabel.getText().contains("Owed")){
             resultLabel.setTextFill(Color.RED);
+        }else{
+            resultLabel.setTextFill(Color.GREEN);
         }
         HBox resultBox = new HBox(resultLabel);
         resultBox.setPadding(new Insets(10,0,0,0));
