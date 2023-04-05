@@ -1,17 +1,9 @@
 package tax;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  *
@@ -19,6 +11,7 @@ import javafx.stage.Stage;
  */
 public class TaxController {
 
+    //Validate the various textfields to ensure they aren't empty, negative, and contain the desired input
     public static void validateForm(TextField income, TextField taxDeducted, TextField cpp, TextField eiPremium, TextField rpp, TextField insurable, TextField union, TextField donations,
             TextField eligibleDividends, TextField otherDividends, TextField eligibleCredit, TextField interest, TextField eligibleTax, TextField otherTax, TextField otherCredit,
             TextField gains, TextField institution, TextField studentNum, TextField fullMonths, TextField program, TextField address, TextField tuition, TextField partMonths, CheckBox certify) {
@@ -57,7 +50,7 @@ public class TaxController {
         } catch (NumberFormatException e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Invalid input format");
+            alert.setHeaderText("Invalid input format. All fields except Educational instituion, address, and name of program require number values");
             alert.showAndWait();
             return;
         }
@@ -113,91 +106,11 @@ public class TaxController {
         int partMonthsValue = Integer.parseInt(partMonths.getText());
         double tuitionValue = Double.parseDouble(tuition.getText());
 
-        calculateTax(totalIncome, taxDeductedValue, cppValue, eiPremiumValue, rppValue, insurableValue, unionValue, donationsValue, eligibleDividendsValue, otherDividendsValue,
+        Calculate.calculateTax(totalIncome, taxDeductedValue, cppValue, eiPremiumValue, rppValue, insurableValue, unionValue, donationsValue, eligibleDividendsValue, otherDividendsValue,
                 eligibleCreditValue, interestValue, eligibleTaxValue, otherTaxValue, otherCreditValue, gainsValue, studentNumValue, fullMonthsValue, partMonthsValue, tuitionValue);
-
     }
 
-    // Method to calculate the taxes owed based on the information provided from the form
-    public static void calculateTax(double totalIncome, double taxDeductedValue, double cppValue, double eiPremiumValue, double rppValue, double insurableValue, double unionValue,
-            double donationsValue, double eligibleDividendsValue, double otherDividendsValue, double eligibleCreditValue, double interestValue, double eligibleTaxValue,
-            double otherTaxValue, double otherCreditValue, double gainsValue, int studentNumValue, int fullMonthsValue, int partMonthsValue, double tuitionValue) {
-
-        // Calculate net income
-        double finalIncome = totalIncome + gainsValue + interestValue + eligibleTaxValue + otherTaxValue;
-        double netIncome = finalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue);
-        double taxCredits = (tuitionValue * 0.15) + (eligibleCreditValue * 0.150198) + (otherCreditValue * 0.90301);
-        // Calculate federal and provincial tax
-        double totalTax;
-        double federalTax;
-        double provincialTax;
-        double eiBenefit = 0.55 * insurableValue;
-
-        if (netIncome <= 15000) {
-            federalTax = 0.0;
-            provincialTax = 0.0;
-        } else if (netIncome <= 47630) {
-            federalTax = (netIncome - 15000) * 0.15;
-            provincialTax = (netIncome - 15000) * 0.0505;
-        } else if (netIncome <= 95259) {
-            federalTax = (netIncome - 47630) * 0.205 + 3559.50;
-            provincialTax = (netIncome - 47630) * 0.0915 + 2397.37;
-        } else if (netIncome <= 147667) {
-            federalTax = (netIncome - 95259) * 0.26 + 8561.21;
-            provincialTax = (netIncome - 95259) * 0.1116 + 4371.72;
-        } else if (netIncome <= 210371) {
-            federalTax = (netIncome - 147667) * 0.29 + 14694.31;
-            provincialTax = (netIncome - 147667) * 0.1216 + 6163.23;
-        } else {
-            federalTax = (netIncome - 210371) * 0.33 + 31114.76;
-            provincialTax = (netIncome - 210371) * 0.1316 + 8392.67;
-        }
-
-        totalTax = federalTax + provincialTax - taxDeductedValue;
-
-        if (totalTax - taxCredits >= 0) {
-            totalTax = federalTax + provincialTax - taxDeductedValue - taxCredits;
-            taxCredits = 0;
-        } else {
-            taxCredits = taxCredits - totalTax;
-            totalTax = 0;
-        }
-
-        // Create a formatted string with the result
-        String result;
-        if (totalTax < 0) {
-            result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f", totalTax * -1, eiBenefit);
-        } else {
-            result = String.format("Taxes Owed: $%.2f (Provincial: $%.2f  Federal: $%.2f)\nUnemployment Insurance Benefits: $%.2f\nTax Credits remaining for next year: $%.2f", totalTax, provincialTax, federalTax, eiBenefit, taxCredits);
-        }
-
-        // Create a new window to display the result
-        Stage resultStage = new Stage();
-        Button saveBtn = new Button("Save");
-        Label resultLabel = new Label(result);
-        VBox resultRoot = new VBox(resultLabel, saveBtn);
-        saveBtn.setOnAction(e -> {
-            try {
-                // Open a file named "tax_result.txt" in write mode
-                FileWriter writer = new FileWriter("taxresult.txt");
-                // Write the result string to the file
-                writer.write(result);
-                // Close the file
-                writer.close();
-                System.out.println("Result saved to file: taxresult.txt");
-            } catch (IOException exception) {
-                // Show an error message if there was an error writing to the file
-             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error saving result to file: " + exception.getMessage());
-            alert.showAndWait();
-            }
-        });
-        Scene resultScene = new Scene(resultRoot, 500, 150);
-        resultStage.setScene(resultScene);
-        resultStage.show();
-    }
-
+    //Methods for clearing forms
     public static void clearT4(TextField income, TextField taxDeducted, TextField cpp, TextField eiPremium, TextField rpp, TextField insurable, TextField union, TextField donations) {
         income.clear();
         taxDeducted.clear();

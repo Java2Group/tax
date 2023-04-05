@@ -268,7 +268,9 @@ public class TaxForm extends Application {
             TaxController.validateForm(income, taxDeducted, cpp, eiPremium, rpp, insurable, union, donations,
                     eligibleDividends, otherDividends, eligibleCredit, interest, eligibleTax, otherTax, otherCredit,
                     gains, institution, studentNum, fullMonths, program, address, tuition, partMonths, certify);
-
+            
+            Results result = new Results();
+            result.start(currentStage);
         });
 
         // Create an HBox to hold the button

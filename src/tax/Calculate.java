@@ -1,21 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tax;
+
+import javafx.scene.paint.Color;
 
 /**
  *
- * @author XeroS
+ * @author Michael Sousa
  */
 public class Calculate {
 
+    
     private static String result;
 
-    public String getResult() {
+    public static String getResult() {
         return result;
     }
 
+    //Method for calculating taxes owed, tax credits, and refund
     public static void calculateTax(double totalIncome, double taxDeductedValue, double cppValue, double eiPremiumValue, double rppValue, double insurableValue, double unionValue,
             double donationsValue, double eligibleDividendsValue, double otherDividendsValue, double eligibleCreditValue, double interestValue, double eligibleTaxValue,
             double otherTaxValue, double otherCreditValue, double gainsValue, int studentNumValue, int fullMonthsValue, int partMonthsValue, double tuitionValue) {
@@ -23,7 +23,7 @@ public class Calculate {
         // Calculate net income
         double finalIncome = totalIncome + gainsValue + interestValue + eligibleTaxValue + otherTaxValue;
         double netIncome = finalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue);
-        double taxCredits = (tuitionValue * 0.15) + (eligibleCreditValue * 0.150198) + (otherCreditValue * 0.90301);
+        //double taxCredits = (tuitionValue * 0.15) + (eligibleCreditValue * 0.150198) + (otherCreditValue * 0.90301);
         // Calculate federal and provincial tax
         double totalTax;
         double federalTax;
@@ -52,19 +52,13 @@ public class Calculate {
 
         totalTax = federalTax + provincialTax - taxDeductedValue;
 
-        if (totalTax - taxCredits >= 0) {
-            totalTax = federalTax + provincialTax - taxDeductedValue - taxCredits;
-            taxCredits = 0;
-        } else {
-            taxCredits = taxCredits - totalTax;
-            totalTax = 0;
-        }
+        
 
         // Create a formatted string with the result
         if (totalTax < 0) {
             result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f", totalTax * -1, eiBenefit);
         } else {
-            result = String.format("Taxes Owed: $%.2f (Provincial: $%.2f  Federal: $%.2f)\nUnemployment Insurance Benefits: $%.2f\nTax Credits remaining for next year: $%.2f", totalTax, provincialTax, federalTax, eiBenefit, taxCredits);
+            result = String.format("Taxes Owed: $%.2f (Provincial: $%.2f  Federal: $%.2f)\nUnemployment Insurance Benefits: $%.2f", totalTax, provincialTax, federalTax, eiBenefit);
         }
     }
 }
