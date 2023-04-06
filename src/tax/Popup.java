@@ -16,4 +16,13 @@ public class Popup {
 		alert.setContentText(alertMessage + exception.getMessage());
 		alert.showAndWait();
 	}
+
+	public static void error(String alertTitle, String alertMessage) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(alertTitle);
+		alert.setHeaderText("");
+
+		alert.setContentText(alertMessage);
+		alert.showAndWait();
+	}
 }

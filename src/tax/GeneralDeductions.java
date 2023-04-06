@@ -50,19 +50,19 @@ public class GeneralDeductions extends Application {
         label1.setPadding(new Insets(10, 20, 10, 20));
 
         Label label2 = new Label("Child care expenses");
-        TextField childCareExpenses = new TextField();
+        TextField childCareExpenses = new TextField("0");
         VBox vbox2 = new VBox(5, label2, childCareExpenses);
         vbox2.setAlignment(Pos.CENTER_LEFT);
         vbox2.setPadding(new Insets(10, 20, 10, 20));
 
         Label label3 = new Label("Medical expenses");
-        TextField medicalExpenses = new TextField();
+        TextField medicalExpenses = new TextField("0");
         VBox vbox3 = new VBox(5, label3, medicalExpenses);
         vbox3.setAlignment(Pos.CENTER_LEFT);
         vbox3.setPadding(new Insets(10, 20, 10, 20));
 
         Label label4 = new Label("Dental expenses");
-        TextField dentalExpenses = new TextField();
+        TextField dentalExpenses = new TextField("0");
         VBox vbox4 = new VBox(5, label4, dentalExpenses);
         vbox4.setAlignment(Pos.CENTER_LEFT);
         vbox4.setPadding(new Insets(10, 20, 10, 20));
@@ -90,7 +90,21 @@ public class GeneralDeductions extends Application {
         // Create the calculate button
         Button nextButton = new Button("Next");
         nextButton.setOnAction(e -> {
-		currentStage.setScene(new TaxForm().getScene(currentStage, user, childCareExpenses.getText(), medicalExpenses.getText(), dentalExpenses.getText()));
+		try {
+			if ((Double.parseDouble(childCareExpenses.getText())) < 0 || (Double.parseDouble(medicalExpenses.getText())) < 0 || (Double.parseDouble(dentalExpenses.getText())) < 0) {
+				Popup.error("Error", "Expenses cannot be negative.");
+				return;
+			}
+		} catch (NumberFormatException exception) {
+			Popup.error("Error", "All fields must contain numbers only.");
+			return;
+		}
+		
+		if (!certify.isSelected()) {
+			Popup.error("Error", "You must click the checkbox.");
+		} else {
+			currentStage.setScene(new TaxForm().getScene(currentStage, user, childCareExpenses.getText(), medicalExpenses.getText(), dentalExpenses.getText()));
+		}
         });
 
         Button backButton = new Button("Back");
