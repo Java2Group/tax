@@ -60,7 +60,7 @@ public class Results extends Application {
         Scene resultScene = new Scene(resultRoot, 500, 200);
         resultStage.setScene(resultScene);
         resultStage.setTitle("Results");
-        resultStage.initModality(Modality.WINDOW_MODAL);
+        resultStage.initModality(Modality.APPLICATION_MODAL);
         resultStage.show();
     }
 }
