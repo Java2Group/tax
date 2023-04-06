@@ -36,17 +36,17 @@ public class Calculate {
             federalTax = (netIncome - 14398) * 0.15;
             provincialTax = (netIncome - 12298) * 0.0505;
         } else if (netIncome <= 100392) {
-            federalTax = (netIncome - 50197) * 0.205 + 3819.76;
+            federalTax = (netIncome - 50197) * 0.205 + 7529.55;
             provincialTax = (netIncome - 46226) * 0.0915 + 2079.61;
         } else if (netIncome <= 155625) {
-            federalTax = (netIncome - 100392) * 0.26 + 8517.86;
-            provincialTax = (netIncome - 92454) * 0.1116 + 4544.97;
+            federalTax = (netIncome - 100392) * 0.26 + 10289.98 + 7529.55;
+            provincialTax = (netIncome - 92454) * 0.1116 + 4544.97 + 2079.61;
         } else if (netIncome <= 221708) {
-            federalTax = (netIncome - 155625) * 0.29 + 16060.09;
-            provincialTax = (netIncome - 150000) * 0.1216 + 6447.36;
+            federalTax = (netIncome - 155625) * 0.29 + 14360.58 + 10289.98 + 7529.55;
+            provincialTax = (netIncome - 150000) * 0.1216 + 6447.36 + 4544.97 + 2079.61;
         } else {
-            federalTax = (netIncome - 221708) * 0.33 + 29029.29;
-            provincialTax = (netIncome - 220000) * 0.1316 + 10533.34;
+            federalTax = (netIncome - 221708) * 0.33 + 19164.07 + 14360.58 + 10289.98 + 7529.55;
+            provincialTax = (netIncome - 220000) * 0.1316 + 10533.34 + 6447.36 + 4544.97 + 2079.61;
         }
 
         totalTax = federalTax + provincialTax - taxDeductedValue;
