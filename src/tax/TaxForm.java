@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  */
 public class TaxForm extends Application {
 
-    public Scene getScene(Stage currentStage) {
+    public Scene getScene(Stage currentStage, User user) {
         Label label1 = new Label("Employment Income");
         TextField income = new TextField("0");
         VBox vbox1 = new VBox(5, label1, income);
@@ -186,7 +186,7 @@ public class TaxForm extends Application {
 
         Button clearT2202Btn = new Button("Clear T2202");
         clearT2202Btn.setOnAction(e -> {
-            TaxController.clearT2202(institution, studentNum, fullMonths, program, address, tuition, partMonths);
+            TaxController.clearT2202(institution, studentNum, fullMonths, partMonths, program, address, tuition);
         });
 
         HBox clearT2202Box = new HBox(clearT2202Btn);
@@ -297,7 +297,7 @@ public class TaxForm extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        primaryStage.setScene(getScene(primaryStage));
+        primaryStage.setScene(getScene(primaryStage, null));
         primaryStage.show();
     }
 
