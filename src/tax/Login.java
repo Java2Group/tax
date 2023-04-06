@@ -55,7 +55,7 @@ public class Login {
 
 				// check if input password matches the one assigned to the email
 				if (new PasswordHandler().passwordMatches(passwordField.getText(), matchedUser)) {
-					currentStage.setScene(new TaxForm().getScene(currentStage));
+					currentStage.setScene(new GeneralDeductions().getScene(currentStage));
 
 					// reset password error text if password found (TEMPORARY)
 					passwordError.setText("");
