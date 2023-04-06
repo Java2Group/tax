@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 public class TaxController {
 
     //Validate the various textfields to ensure they aren't empty, negative, and contain the desired input
-    public static void validateForm(TextField income, TextField taxDeducted, TextField cpp, TextField eiPremium, TextField rpp, TextField insurable, TextField union, TextField donations,
+    public static boolean validateForm(TextField income, TextField taxDeducted, TextField cpp, TextField eiPremium, TextField rpp, TextField insurable, TextField union, TextField donations,
             TextField eligibleDividends, TextField otherDividends, TextField eligibleCredit, TextField interest, TextField eligibleTax, TextField otherTax, TextField otherCredit,
             TextField gains, TextField institution, TextField studentNum, TextField fullMonths, TextField program, TextField address, TextField tuition, TextField partMonths, CheckBox certify) {
         if (income.getText().isEmpty() || taxDeducted.getText().isEmpty() || cpp.getText().isEmpty() || eiPremium.getText().isEmpty() || rpp.getText().isEmpty()
@@ -24,7 +24,7 @@ public class TaxController {
             alert.setTitle("Error");
             alert.setHeaderText("Checkbox and all fields are required");
             alert.showAndWait();
-            return;
+            return false;
         }
 
         try {
@@ -52,7 +52,7 @@ public class TaxController {
             alert.setTitle("Error");
             alert.setHeaderText("Invalid input format. All fields except Educational instituion, address, and name of program require number values");
             alert.showAndWait();
-            return;
+            return false;
         }
 
         if (!institution.getText().matches("[a-zA-Z]+")) {
@@ -60,7 +60,7 @@ public class TaxController {
             alert.setTitle("Error");
             alert.setHeaderText("Institution must contain only letters");
             alert.showAndWait();
-            return;
+            return false;
         }
 
         if (!program.getText().matches("[a-zA-Z]+")) {
@@ -68,7 +68,7 @@ public class TaxController {
             alert.setTitle("Error");
             alert.setHeaderText("Program must contain only letters");
             alert.showAndWait();
-            return;
+            return false;
         }
 
         if (Double.parseDouble(income.getText()) < 0 || Double.parseDouble(taxDeducted.getText()) < 0 || Double.parseDouble(cpp.getText()) < 0
@@ -81,7 +81,7 @@ public class TaxController {
             alert.setTitle("Error");
             alert.setHeaderText("Negative values are not allowed");
             alert.showAndWait();
-            return;
+            return false;
         }
 
         // Parse input values
@@ -105,9 +105,11 @@ public class TaxController {
         int fullMonthsValue = Integer.parseInt(fullMonths.getText());
         int partMonthsValue = Integer.parseInt(partMonths.getText());
         double tuitionValue = Double.parseDouble(tuition.getText());
-
+        
+        
         Calculate.calculateTax(totalIncome, taxDeductedValue, cppValue, eiPremiumValue, rppValue, insurableValue, unionValue, donationsValue, eligibleDividendsValue, otherDividendsValue,
                 eligibleCreditValue, interestValue, eligibleTaxValue, otherTaxValue, otherCreditValue, gainsValue, studentNumValue, fullMonthsValue, partMonthsValue, tuitionValue);
+        return true;
     }
 
     //Methods for clearing forms

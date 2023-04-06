@@ -22,7 +22,8 @@ public class Calculate {
         double netIncome = finalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue);
         double taxCredits = (tuitionValue * 0.15) + (eligibleCreditValue * 0.150198) + (otherCreditValue * 0.090301);
         double refund;
-        double creditRemaining;
+        
+
         // Calculate federal and provincial tax
         double totalTax;
         double federalTax;
@@ -49,13 +50,20 @@ public class Calculate {
             provincialTax = (netIncome - 210371) * 0.1316 + 8392.67;
         }
 
-        totalTax = federalTax + provincialTax - taxDeductedValue - taxCredits;
+        totalTax = federalTax + provincialTax - taxDeductedValue;
+        if(totalTax - taxCredits >= 0){
+            totalTax -= taxCredits;
+        }else if(totalTax - taxCredits < 0){
+            totalTax = 0;
+            taxCredits = Math.abs(totalTax - taxCredits);
+        }
 
         // Create a formatted string with the result
-        if (totalTax < 0) {
-            creditRemaining = Math.max(0, taxCredits - totalTax);
-            refund = (Math.abs(totalTax)) - creditRemaining;
-            result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f\nTax Credits: $%.2f\nTax Credits Remaining: $%.2f", refund, eiBenefit, taxCredits, creditRemaining);
+        if (totalTax <= 0) {
+            totalTax = federalTax + provincialTax;
+            refund = Math.abs(totalTax - taxDeductedValue);
+
+            result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f\nTax Credits remaining: $%.2f", refund, eiBenefit, taxCredits);
         } else {
             result = String.format("Taxes Owed: $%.2f (Provincial: $%.2f  Federal: $%.2f)\nUnemployment Insurance Benefits: $%.2f", totalTax, provincialTax, federalTax, eiBenefit);
         }

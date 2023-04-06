@@ -265,12 +265,12 @@ public class TaxForm extends Application {
         // Create the calculate button
         Button calcButton = new Button("Calculate");
         calcButton.setOnAction(e -> {
-            TaxController.validateForm(income, taxDeducted, cpp, eiPremium, rpp, insurable, union, donations,
+            if (TaxController.validateForm(income, taxDeducted, cpp, eiPremium, rpp, insurable, union, donations,
                     eligibleDividends, otherDividends, eligibleCredit, interest, eligibleTax, otherTax, otherCredit,
-                    gains, institution, studentNum, fullMonths, program, address, tuition, partMonths, certify);
-            
-            Results result = new Results();
-            result.start(currentStage);
+                    gains, institution, studentNum, fullMonths, program, address, tuition, partMonths, certify)) {
+                Results result = new Results();
+                result.start(currentStage);
+            }
         });
 
         // Create an HBox to hold the button
@@ -290,8 +290,8 @@ public class TaxForm extends Application {
         // Create the Scene and set it on the Stage
         Scene scene = new Scene(root, 1400, 600);
 
-	currentStage.setTitle("Tax Input");
-	return scene;
+        currentStage.setTitle("Tax Input");
+        return scene;
     }
 
     @Override
