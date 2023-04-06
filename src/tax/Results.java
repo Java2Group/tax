@@ -61,6 +61,7 @@ public class Results extends Application {
         resultStage.setScene(resultScene);
         resultStage.setTitle("Results");
         resultStage.initModality(Modality.APPLICATION_MODAL);
+        resultStage.setResizable(false);
         resultStage.show();
     }
 }
