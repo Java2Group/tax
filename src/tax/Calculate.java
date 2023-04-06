@@ -137,6 +137,9 @@ public class Calculate {
                 creditsRemaining = i;
             }
         }
+        if(creditsRemaining <= 0.01){
+            creditsRemaining = 0;
+        }
         totalTax -= taxDeductedValue;
 
         // Create a formatted string with the result
