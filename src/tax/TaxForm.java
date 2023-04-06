@@ -21,6 +21,14 @@ import javafx.stage.Stage;
 public class TaxForm extends Application {
 
     public Scene getScene(Stage currentStage, User user) {
+	String region;
+	if (user != null) {
+		region = user.getRegion();
+	} else {
+		// for testing purposes when running tax form directly
+		region = "Ontario";
+	}
+
         Label label1 = new Label("Employment Income");
         TextField income = new TextField("0");
         VBox vbox1 = new VBox(5, label1, income);
@@ -267,7 +275,7 @@ public class TaxForm extends Application {
         calcButton.setOnAction(e -> {
             if (TaxController.validateForm(income, taxDeducted, cpp, eiPremium, rpp, insurable, union, donations,
                     eligibleDividends, otherDividends, eligibleCredit, interest, eligibleTax, otherTax, otherCredit,
-                    gains, institution, studentNum, fullMonths, program, address, tuition, partMonths, certify)) {
+                    gains, institution, studentNum, fullMonths, program, address, tuition, partMonths, certify, region)) {
                 Results result = new Results();
                 result.start(currentStage);
             }
