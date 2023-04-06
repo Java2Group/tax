@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -59,6 +60,7 @@ public class Results extends Application {
         Scene resultScene = new Scene(resultRoot, 500, 200);
         resultStage.setScene(resultScene);
         resultStage.setTitle("Results");
+        resultStage.initModality(Modality.WINDOW_MODAL);
         resultStage.show();
     }
 }
