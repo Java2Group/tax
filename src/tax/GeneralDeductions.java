@@ -29,8 +29,27 @@ import javafx.stage.Stage;
  */
 public class GeneralDeductions extends Application {
     
-    public Scene getScene(Stage currentStage) {
-        UserList userList = new UserList();
+    public Scene getScene(Stage currentStage, User user) {
+
+	VBox welcomeArea = new VBox(10);
+        welcomeArea.setAlignment(Pos.CENTER);
+        welcomeArea.setPadding(new Insets(50, 20, 50, 20));
+
+	Label welcomeText = new Label();
+        welcomeText.setFont(new Font("Arial", 24));
+
+	Label provinceText = new Label();
+        provinceText.setFont(new Font("Arial", 24));
+
+	if (user != null) {
+		welcomeText.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
+		provinceText.setText("Begin doing your taxes for " + user.getRegion() + " residents");
+	} else {
+		welcomeText.setText("Welcome Testing User");
+		provinceText.setText("Begin doing your taxes for Ontario residents");
+	}
+
+	welcomeArea.getChildren().addAll(welcomeText, provinceText);
 
 
         Label label1 = new Label("General Deductions");
@@ -80,7 +99,7 @@ public class GeneralDeductions extends Application {
         // Create the calculate button
         Button nextButton = new Button("Next");
         nextButton.setOnAction(e -> {
-		currentStage.setScene(new TaxForm().getScene(currentStage));
+		currentStage.setScene(new TaxForm().getScene(currentStage, user));
         });
 
         // Create an HBox to hold the button
@@ -95,7 +114,7 @@ public class GeneralDeductions extends Application {
         VBox root = new VBox();
 
         root.getChildren()
-                .addAll(grid, buttonBox);
+                .addAll(welcomeArea, grid, buttonBox);
 
         // Create the Scene and set it on the Stage
         Scene scene = new Scene(root, 1400, 600);
@@ -107,7 +126,7 @@ public class GeneralDeductions extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setScene(getScene(primaryStage));
+        primaryStage.setScene(getScene(primaryStage, null));
         primaryStage.show();
     }
 
