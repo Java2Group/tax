@@ -20,15 +20,7 @@ import javafx.stage.Stage;
  */
 public class TaxForm extends Application {
 
-    public Scene getScene(Stage currentStage, User user) {
-	String region;
-	if (user != null) {
-		region = user.getRegion();
-	} else {
-		// default for testing purposes when running tax form directly
-		region = "Ontario";
-	}
-
+    public Scene getScene(Stage currentStage, User user, String childCareExpenses, String medicalExpenses, String dentalExpenses) {
         Label label1 = new Label("Employment Income");
         TextField income = new TextField("0");
         VBox vbox1 = new VBox(5, label1, income);
@@ -275,7 +267,7 @@ public class TaxForm extends Application {
         calcButton.setOnAction(e -> {
             if (TaxController.validateForm(income, taxDeducted, cpp, eiPremium, rpp, insurable, union, donations,
                     eligibleDividends, otherDividends, eligibleCredit, interest, eligibleTax, otherTax, otherCredit,
-                    gains, institution, studentNum, fullMonths, program, address, tuition, partMonths, certify, region)) {
+                    gains, institution, studentNum, fullMonths, program, address, tuition, partMonths, childCareExpenses, medicalExpenses, dentalExpenses, certify, user.getRegion())) {
                 Results result = new Results();
                 result.start(currentStage);
             }
@@ -310,8 +302,12 @@ public class TaxForm extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        User testingUser = new User();
+	testingUser.setRegion("Ontario");
+	testingUser.setFirstName("John");
+	testingUser.setLastName("Smith");
 
-        primaryStage.setScene(getScene(primaryStage, null));
+        primaryStage.setScene(getScene(primaryStage, testingUser, "0", "0", "0"));
         primaryStage.show();
     }
 

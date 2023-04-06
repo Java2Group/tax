@@ -14,7 +14,7 @@ public class TaxController {
     //Validate the various textfields to ensure they aren't empty, negative, and contain the desired input
     public static boolean validateForm(TextField income, TextField taxDeducted, TextField cpp, TextField eiPremium, TextField rpp, TextField insurable, TextField union, TextField donations,
             TextField eligibleDividends, TextField otherDividends, TextField eligibleCredit, TextField interest, TextField eligibleTax, TextField otherTax, TextField otherCredit,
-            TextField gains, TextField institution, TextField studentNum, TextField fullMonths, TextField program, TextField address, TextField tuition, TextField partMonths, CheckBox certify, String region) {
+            TextField gains, TextField institution, TextField studentNum, TextField fullMonths, TextField program, TextField address, TextField tuition, TextField partMonths, String childCareExpenses, String medicalExpenses, String dentalExpenses, CheckBox certify, String region) {
         if (income.getText().isEmpty() || taxDeducted.getText().isEmpty() || cpp.getText().isEmpty() || eiPremium.getText().isEmpty() || rpp.getText().isEmpty()
                 || insurable.getText().isEmpty() || union.getText().isEmpty() || donations.getText().isEmpty() || eligibleDividends.getText().isEmpty()
                 || otherDividends.getText().isEmpty() || eligibleCredit.getText().isEmpty() || interest.getText().isEmpty() || eligibleTax.getText().isEmpty()
@@ -105,10 +105,13 @@ public class TaxController {
         int fullMonthsValue = Integer.parseInt(fullMonths.getText());
         int partMonthsValue = Integer.parseInt(partMonths.getText());
         double tuitionValue = Double.parseDouble(tuition.getText());
+        double childCareExpensesValue = Double.parseDouble(childCareExpenses);
+        double medicalExpensesValue = Double.parseDouble(medicalExpenses);
+        double dentalExpensesValue = Double.parseDouble(dentalExpenses);
         
         
         Calculate.calculateTax(totalIncome, taxDeductedValue, cppValue, eiPremiumValue, rppValue, insurableValue, unionValue, donationsValue, eligibleDividendsValue, otherDividendsValue,
-                eligibleCreditValue, interestValue, eligibleTaxValue, otherTaxValue, otherCreditValue, gainsValue, studentNumValue, fullMonthsValue, partMonthsValue, tuitionValue, region);
+                eligibleCreditValue, interestValue, eligibleTaxValue, otherTaxValue, otherCreditValue, gainsValue, studentNumValue, fullMonthsValue, partMonthsValue, tuitionValue, childCareExpensesValue, medicalExpensesValue, dentalExpensesValue, region);
         return true;
     }
 

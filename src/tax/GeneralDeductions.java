@@ -6,11 +6,8 @@ package tax;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -18,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -41,13 +37,8 @@ public class GeneralDeductions extends Application {
 	Label provinceText = new Label();
         provinceText.setFont(new Font("Arial", 24));
 
-	if (user != null) {
-		welcomeText.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
-		provinceText.setText("Begin doing taxes for " + user.getRegion() + " residents");
-	} else {
-		welcomeText.setText("Welcome Testing User");
-		provinceText.setText("Begin doing your taxes for Ontario residents");
-	}
+	welcomeText.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
+	provinceText.setText("Begin doing taxes for " + user.getRegion() + " residents");
 
 	welcomeArea.getChildren().addAll(welcomeText, provinceText);
 
@@ -59,20 +50,20 @@ public class GeneralDeductions extends Application {
         label1.setPadding(new Insets(10, 20, 10, 20));
 
         Label label2 = new Label("Child care expenses");
-        TextField cpp = new TextField();
-        VBox vbox2 = new VBox(5, label2, cpp);
+        TextField childCareExpenses = new TextField();
+        VBox vbox2 = new VBox(5, label2, childCareExpenses);
         vbox2.setAlignment(Pos.CENTER_LEFT);
         vbox2.setPadding(new Insets(10, 20, 10, 20));
 
         Label label3 = new Label("Medical expenses");
-        TextField eiPremium = new TextField();
-        VBox vbox3 = new VBox(5, label3, eiPremium);
+        TextField medicalExpenses = new TextField();
+        VBox vbox3 = new VBox(5, label3, medicalExpenses);
         vbox3.setAlignment(Pos.CENTER_LEFT);
         vbox3.setPadding(new Insets(10, 20, 10, 20));
 
         Label label4 = new Label("Dental expenses");
-        TextField rpp = new TextField();
-        VBox vbox4 = new VBox(5, label4, rpp);
+        TextField dentalExpenses = new TextField();
+        VBox vbox4 = new VBox(5, label4, dentalExpenses);
         vbox4.setAlignment(Pos.CENTER_LEFT);
         vbox4.setPadding(new Insets(10, 20, 10, 20));
 
@@ -99,7 +90,7 @@ public class GeneralDeductions extends Application {
         // Create the calculate button
         Button nextButton = new Button("Next");
         nextButton.setOnAction(e -> {
-		currentStage.setScene(new TaxForm().getScene(currentStage, user));
+		currentStage.setScene(new TaxForm().getScene(currentStage, user, childCareExpenses.getText(), medicalExpenses.getText(), dentalExpenses.getText()));
         });
 
         Button backButton = new Button("Back");
@@ -132,7 +123,12 @@ public class GeneralDeductions extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setScene(getScene(primaryStage, null));
+        User testingUser = new User();
+	testingUser.setRegion("Ontario");
+	testingUser.setFirstName("John");
+	testingUser.setLastName("Smith");
+
+        primaryStage.setScene(getScene(primaryStage, testingUser));
         primaryStage.show();
     }
 

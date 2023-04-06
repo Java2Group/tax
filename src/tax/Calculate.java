@@ -16,13 +16,32 @@ public class Calculate {
     //Method for calculating taxes owed, tax credits, and refund
     public static void calculateTax(double totalIncome, double taxDeductedValue, double cppValue, double eiPremiumValue, double rppValue, double insurableValue, double unionValue,
             double donationsValue, double eligibleDividendsValue, double otherDividendsValue, double eligibleCreditValue, double interestValue, double eligibleTaxValue,
-            double otherTaxValue, double otherCreditValue, double gainsValue, int studentNumValue, int fullMonthsValue, int partMonthsValue, double tuitionValue, String region) {
+            double otherTaxValue, double otherCreditValue, double gainsValue, int studentNumValue, int fullMonthsValue, int partMonthsValue, double tuitionValue, double childCareExpensesValue, double medicalExpensesValue, double dentalExpensesValue, String region) {
 
         // Calculate net income
         double finalIncome = totalIncome + gainsValue + interestValue + eligibleTaxValue + otherTaxValue;
-        double netIncome = finalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue);
-        double taxCredits = (tuitionValue * 0.15) + (eligibleCreditValue * 0.150198) + (otherCreditValue * 0.090301);
+        double netIncome = finalIncome - (cppValue + eiPremiumValue + rppValue + insurableValue + unionValue + donationsValue + childCareExpensesValue);
+
+	// Calculate medical(+dental which is included) expense tax credit (2022 values)
+	// threshold is the lesser of $2479 or 3% of one's net income
+	final int MEDICAL_EXPENSE_THRESHOLD = 2479;
+	double lesserMedicalThreshold = (MEDICAL_EXPENSE_THRESHOLD < (netIncome * 0.03)) ? MEDICAL_EXPENSE_THRESHOLD : (netIncome * 0.03);
+	// eligible expenses are then returned at a rate of 15%
+	final double MEDICAL_CREDIT_RATE = 0.15;
+
+	// medical expenses under this threshold are not eligible for credits
+	double medicalCredit;
+	if (((medicalExpensesValue + dentalExpensesValue) - lesserMedicalThreshold) > 0) {
+		medicalCredit = (((medicalExpensesValue + dentalExpensesValue) - lesserMedicalThreshold) * MEDICAL_CREDIT_RATE);
+	} else {
+		medicalCredit = 0;
+	}
+
+
+	// Calculate tax credits
+        double taxCredits = (tuitionValue * 0.15) + (eligibleCreditValue * 0.150198) + (otherCreditValue * 0.090301) + medicalCredit;
         double refund;
+
 
         // Calculate federal and provincial tax
         double totalTax;
