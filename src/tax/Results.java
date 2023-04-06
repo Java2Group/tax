@@ -56,7 +56,7 @@ public class Results extends Application {
                 alert.showAndWait();
             }
         });
-        Scene resultScene = new Scene(resultRoot, 500, 250);
+        Scene resultScene = new Scene(resultRoot, 500, 200);
         resultStage.setScene(resultScene);
         resultStage.setTitle("Results");
         resultStage.show();

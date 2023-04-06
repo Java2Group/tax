@@ -53,15 +53,12 @@ public class Calculate {
         totalTax = federalTax + provincialTax - taxDeductedValue;
         if(totalTax - taxCredits >= 0){
             totalTax -= taxCredits;
-        }else if(totalTax - taxCredits < 0){
-            totalTax = 0;
-            taxCredits = Math.abs(totalTax - taxCredits);
         }
-
         // Create a formatted string with the result
         if (totalTax <= 0) {
             totalTax = federalTax + provincialTax;
             refund = Math.abs(totalTax - taxDeductedValue);
+            
 
             result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f\nTax Credits remaining: $%.2f", refund, eiBenefit, taxCredits);
         } else {
