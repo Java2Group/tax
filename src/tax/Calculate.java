@@ -45,6 +45,8 @@ public class Calculate {
 
         // Calculate federal and provincial tax
         double totalTax;
+        double finalTax;
+        double creditsRemaining = 0;
         double federalTax;
         double provincialTax;
         double eiBenefit = 0.55 * insurableValue;
@@ -128,16 +130,28 @@ public class Calculate {
 
 
 
-        totalTax = federalTax + provincialTax - taxDeductedValue;
-        if (totalTax - taxCredits >= 0) {
-            totalTax -= taxCredits;
+        totalTax = federalTax + provincialTax; //- taxDeductedValue;
+        
+        //Nonrefundable credit calculation
+        for(double i = taxCredits; totalTax > 0; i-=0.01){
+            if(i <=0){
+                break;
+            }
+            totalTax-= 0.01;
+            if(totalTax <= 0){
+                totalTax = 0;
+            }
+            if(i > 0){
+                creditsRemaining = i;
+            }
         }
+        totalTax -= taxDeductedValue;
+        
         // Create a formatted string with the result
         if (totalTax <= 0) {
-            totalTax = federalTax + provincialTax;
-            refund = Math.abs(totalTax - taxDeductedValue);
+            refund = Math.abs(totalTax);
 
-            result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f\nTax Credits remaining: $%.2f", refund, eiBenefit, taxCredits);
+            result = String.format("Tax Refund: $%.2f\nUnemployment Insurance Benefits: $%.2f\nTax Credits remaining: $%.2f", refund, eiBenefit, creditsRemaining);
         } else {
             result = String.format("Taxes Owed: $%.2f (Provincial: $%.2f  Federal: $%.2f)\nUnemployment Insurance Benefits: $%.2f", totalTax, provincialTax, federalTax, eiBenefit);
         }

@@ -48,7 +48,7 @@ public class Results extends Application {
                 writer.write(Calculate.getResult());
                 // Close the file
                 writer.close();
-                System.out.println("Result saved to file: taxresult.txt");
+                resultLabel.setText("Result saved to file: taxresult.txt");
             } catch (IOException exception) {
                 // Show an error message if there was an error writing to the file
                 Alert alert = new Alert(AlertType.ERROR);
