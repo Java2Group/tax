@@ -186,7 +186,7 @@ public class TaxForm extends Application {
 
         Button clearT2202Btn = new Button("Clear T2202");
         clearT2202Btn.setOnAction(e -> {
-            TaxController.clearT2202(institution, studentNum, fullMonths, program, address, tuition, partMonths);
+            TaxController.clearT2202(institution, studentNum, fullMonths, partMonths, program, address, tuition);
         });
 
         HBox clearT2202Box = new HBox(clearT2202Btn);

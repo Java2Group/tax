@@ -114,36 +114,36 @@ public class TaxController {
 
     //Methods for clearing forms
     public static void clearT4(TextField income, TextField taxDeducted, TextField cpp, TextField eiPremium, TextField rpp, TextField insurable, TextField union, TextField donations) {
-        income.clear();
-        taxDeducted.clear();
-        cpp.clear();
-        eiPremium.clear();
-        rpp.clear();
-        insurable.clear();
-        union.clear();
-        donations.clear();
+        income.setText("0");
+        taxDeducted.setText("0");
+        cpp.setText("0");
+        eiPremium.setText("0");
+        rpp.setText("0");
+        insurable.setText("0");
+        union.setText("0");
+        donations.setText("0");
     }
 
     public static void clearT5(TextField eligibleDividends, TextField otherDividends, TextField eligibleCredit, TextField interest, TextField eligibleTax,
             TextField otherTax, TextField otherCredit, TextField gains) {
-        eligibleDividends.clear();
-        otherDividends.clear();
-        eligibleCredit.clear();
-        interest.clear();
-        eligibleTax.clear();
-        otherTax.clear();
-        otherCredit.clear();
-        gains.clear();
+        eligibleDividends.setText("0");
+        otherDividends.setText("0");
+        eligibleCredit.setText("0");
+        interest.setText("0");
+        eligibleTax.setText("0");
+        otherTax.setText("0");
+        otherCredit.setText("0");
+        gains.setText("0");
     }
 
     public static void clearT2202(TextField institution, TextField studentNum, TextField fullMonths, TextField partMonths, TextField program, TextField address, TextField tuition) {
-        institution.clear();
-        studentNum.clear();
-        fullMonths.clear();
-        partMonths.clear();
-        address.clear();
-        program.clear();
-        tuition.clear();
+        institution.setText("NA");
+        studentNum.setText("0");
+        fullMonths.setText("0");
+        partMonths.setText("0");
+        address.setText("NA");
+        program.setText("NA");
+        tuition.setText("0");
     }
 
 }
