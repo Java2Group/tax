@@ -25,7 +25,7 @@ public class TaxForm extends Application {
 	if (user != null) {
 		region = user.getRegion();
 	} else {
-		// for testing purposes when running tax form directly
+		// default for testing purposes when running tax form directly
 		region = "Ontario";
 	}
 
@@ -281,8 +281,14 @@ public class TaxForm extends Application {
             }
         });
 
-        // Create an HBox to hold the button
-        HBox buttonBox = new HBox(calcButton);
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> {
+		currentStage.setScene(new GeneralDeductions().getScene(currentStage, user));
+        });
+
+        // Create an HBox to hold the buttons
+        HBox buttonBox = new HBox(20);
+	buttonBox.getChildren().addAll(backButton, calcButton);
 
         buttonBox.setAlignment(Pos.BOTTOM_CENTER);
 

@@ -43,7 +43,7 @@ public class GeneralDeductions extends Application {
 
 	if (user != null) {
 		welcomeText.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
-		provinceText.setText("Begin doing your taxes for " + user.getRegion() + " residents");
+		provinceText.setText("Begin doing taxes for " + user.getRegion() + " residents");
 	} else {
 		welcomeText.setText("Welcome Testing User");
 		provinceText.setText("Begin doing your taxes for Ontario residents");
@@ -102,8 +102,14 @@ public class GeneralDeductions extends Application {
 		currentStage.setScene(new TaxForm().getScene(currentStage, user));
         });
 
-        // Create an HBox to hold the button
-        HBox buttonBox = new HBox(nextButton);
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> { 
+		currentStage.setScene(new Login().getScene(currentStage));
+	});
+
+        // Create an HBox to hold the buttons
+        HBox buttonBox = new HBox(20);
+	buttonBox.getChildren().addAll(backButton, nextButton);
 
         buttonBox.setAlignment(Pos.BOTTOM_CENTER);
 
