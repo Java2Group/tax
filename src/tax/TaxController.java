@@ -108,14 +108,13 @@ public class TaxController {
         double childCareExpensesValue = Double.parseDouble(childCareExpenses);
         double medicalExpensesValue = Double.parseDouble(medicalExpenses);
         double dentalExpensesValue = Double.parseDouble(dentalExpenses);
-        
-        
+
         Calculate.calculateTax(totalIncome, taxDeductedValue, cppValue, eiPremiumValue, rppValue, insurableValue, unionValue, donationsValue, eligibleDividendsValue, otherDividendsValue,
                 eligibleCreditValue, interestValue, eligibleTaxValue, otherTaxValue, otherCreditValue, gainsValue, studentNumValue, fullMonthsValue, partMonthsValue, tuitionValue, childCareExpensesValue, medicalExpensesValue, dentalExpensesValue, region);
         return true;
     }
 
-    //Methods for clearing forms
+    //Methods for resetting forms to their default states
     public static void clearT4(TextField income, TextField taxDeducted, TextField cpp, TextField eiPremium, TextField rpp, TextField insurable, TextField union, TextField donations) {
         income.setText("0");
         taxDeducted.setText("0");

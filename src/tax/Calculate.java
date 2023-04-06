@@ -152,6 +152,7 @@ public class Calculate {
         }
     }
 
+    // Provincial tax calculation methods
     private static double calculateAlberta(double netIncome) {
         final int AB_PERSONAL_AMOUNT = 19369;
 

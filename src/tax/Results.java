@@ -46,7 +46,7 @@ public class Results extends Application {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
         
-        //Saving file to location specified by the user in the .txt format.
+        //Saving file with .txt extension to location specified by the user.
         saveBtn.setOnAction(e -> {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text Files (*.txt)", "*.txt");
             fileChooser.getExtensionFilters().add(extFilter);
