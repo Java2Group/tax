@@ -1,7 +1,5 @@
 package tax;
 
-import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,7 +17,7 @@ import javafx.stage.Stage;
  *
  * @author Abdulrahman Chalya
  */
-public class GeneralDeductions extends Application {
+public class GeneralDeductions {
     
     public Scene getScene(Stage currentStage, User user) {
 
@@ -128,20 +126,5 @@ public class GeneralDeductions extends Application {
 	currentStage.setTitle("General Deductions");
 
 	return scene;
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        User testingUser = new User();
-	testingUser.setRegion("Ontario");
-	testingUser.setFirstName("John");
-	testingUser.setLastName("Smith");
-
-        primaryStage.setScene(getScene(primaryStage, testingUser));
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

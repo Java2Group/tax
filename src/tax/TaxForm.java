@@ -1,7 +1,5 @@
 package tax;
 
-import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Michael Sousa
  */
-public class TaxForm extends Application {
+public class TaxForm {
 
     public Scene getScene(Stage currentStage, User user, String childCareExpenses, String medicalExpenses, String dentalExpenses) {
         Label label1 = new Label("Employment Income");
@@ -298,20 +296,5 @@ public class TaxForm extends Application {
 
         currentStage.setTitle("Tax Input");
         return scene;
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        User testingUser = new User();
-	testingUser.setRegion("Ontario");
-	testingUser.setFirstName("John");
-	testingUser.setLastName("Smith");
-
-        primaryStage.setScene(getScene(primaryStage, testingUser, "0", "0", "0"));
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
