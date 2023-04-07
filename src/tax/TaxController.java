@@ -1,7 +1,5 @@
 package tax;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
@@ -20,10 +18,7 @@ public class TaxController {
                 || otherDividends.getText().isEmpty() || eligibleCredit.getText().isEmpty() || interest.getText().isEmpty() || eligibleTax.getText().isEmpty()
                 || otherTax.getText().isEmpty() || otherCredit.getText().isEmpty() || gains.getText().isEmpty() || institution.getText().isEmpty() || studentNum.getText().isEmpty()
                 || fullMonths.getText().isEmpty() || program.getText().isEmpty() || address.getText().isEmpty() || tuition.getText().isEmpty() || partMonths.getText().isEmpty() || certify.isSelected() == false) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Checkbox and all fields are required");
-            alert.showAndWait();
+	    Popup.error("Error", "Checkbox and all fields are required");
             return false;
         }
 
@@ -48,26 +43,17 @@ public class TaxController {
             Integer.parseInt(fullMonths.getText());
             Integer.parseInt(partMonths.getText());
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Invalid input format. All fields except Educational instituion, address, and name of program require number values");
-            alert.showAndWait();
+	    Popup.error("Error", "Invalid input format. All fields except Educational instituion, address, and name of program require number values");
             return false;
         }
 
         if (!institution.getText().matches("[a-zA-Z]+")) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Institution must contain only letters");
-            alert.showAndWait();
+	    Popup.error("Error", "Institution must contain only letters");
             return false;
         }
 
         if (!program.getText().matches("[a-zA-Z]+")) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Program must contain only letters");
-            alert.showAndWait();
+	    Popup.error("Error", "Program must contain only letters");
             return false;
         }
 
@@ -77,10 +63,7 @@ public class TaxController {
                 || Double.parseDouble(otherDividends.getText()) < 0 || Double.parseDouble(eligibleCredit.getText()) < 0 || Double.parseDouble(interest.getText()) < 0
                 || Double.parseDouble(eligibleTax.getText()) < 0 || Double.parseDouble(otherTax.getText()) < 0 || Double.parseDouble(otherCredit.getText()) < 0
                 || Double.parseDouble(gains.getText()) < 0) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Negative values are not allowed");
-            alert.showAndWait();
+	    Popup.error("Error", "Negative values are not allowed");
             return false;
         }
 

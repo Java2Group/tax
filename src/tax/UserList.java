@@ -51,7 +51,6 @@ public class UserList {
 					user.setPasswordHash(Base64.getEncoder().encodeToString(passwordHash));
 				}
 				catch (NoSuchAlgorithmException | InvalidKeySpecException exception) {
-					System.out.println(exception.getMessage());
 					Popup.error(exception, "Error creating password hash", "Failed to create password hash: ");
 				}
 
@@ -64,11 +63,9 @@ public class UserList {
 			}
 		}
 		catch (IllegalArgumentException exception) {
-			System.out.println(exception.getMessage());
 			Popup.error(exception, "Error importing users", "Failed to process some users: ");
 		}
 		catch (ArrayIndexOutOfBoundsException exception) {
-			System.out.println(exception.getMessage());
 			Popup.error(exception, "Error importing users", "Failed to process some users: users with incorrect amount of entries not processed.\n");
 		}
 	}
@@ -83,7 +80,6 @@ public class UserList {
 		}
 		catch (IOException exception) {
 			Popup.error(exception, "Error writing users file", "");
-			exception.printStackTrace();
 		}
 	}
 
@@ -103,7 +99,6 @@ public class UserList {
 		}
 		catch (IOException exception) {
 			Popup.error(exception, "Error reading users file", "");
-			exception.printStackTrace();
 		}
 	}
 

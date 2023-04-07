@@ -7,8 +7,6 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -59,10 +57,7 @@ public class Results extends Application {
                     resultLabel.setText("Results saved to file: " + file.getName());
                 } catch (IOException exception) {
                     // Show an error message if there was an error writing to the file
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Error saving result to file: " + exception.getMessage());
-                    alert.showAndWait();
+		    Popup.error(exception, "Error", "Error saving result to file: ");
                 }
             }
         });

@@ -12,8 +12,9 @@ public class Popup {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(alertTitle);
 		alert.setHeaderText("");
-
 		alert.setContentText(alertMessage + exception.getMessage());
+
+		System.out.println(exception.getMessage());
 		alert.showAndWait();
 	}
 
@@ -21,8 +22,8 @@ public class Popup {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(alertTitle);
 		alert.setHeaderText("");
-
 		alert.setContentText(alertMessage);
+
 		alert.showAndWait();
 	}
 }

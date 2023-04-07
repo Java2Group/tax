@@ -50,7 +50,6 @@ public class PasswordHandler {
 			passwordInputHash = createPasswordHash(passwordInput, Base64.getDecoder().decode(matchedUserSalt));
 		}
 		catch (NoSuchAlgorithmException | InvalidKeySpecException exception) {
-			System.out.println(exception.getMessage());
 			Popup.error(exception, "Error creating password hash", "Failed to create password hash: ");
 			return false;
 		}
