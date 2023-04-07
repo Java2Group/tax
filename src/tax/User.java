@@ -22,7 +22,7 @@ public class User {
 	private String passwordHash;
 
 	public User() {
-
+		//intentionally blank
 	}
 
 	public String getFirstName() {
@@ -161,7 +161,4 @@ public class User {
 	public String toString() {
 		return firstName + "\t" + lastName + "\t" + dateOfBirth + "\t" + streetAddress + "\t" + city + "\t" + region + "\t" + postalCode + "\t" + phoneNumber + "\t" + emailAddress + "\t" + passwordSalt + "\t" + passwordHash;
 	}
-
-
-	
 }

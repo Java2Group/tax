@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 public class Login {
 
 	public Scene getScene(Stage currentStage) {
+		// load users from file on login screen
 		UserList userList = new UserList();
 		userList.readFromFile();
 

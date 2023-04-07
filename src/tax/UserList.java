@@ -22,7 +22,6 @@ public class UserList {
 
 	PasswordHandler passwordHandler = new PasswordHandler();
 
-
 	public void createUser(boolean write, String ... input) {
 		User user = new User();
 
@@ -81,7 +80,6 @@ public class UserList {
 			PrintWriter writer = new PrintWriter(buffer);
 		) {
 			writer.println(user);
-			System.out.println(user);
 		}
 		catch (IOException exception) {
 			Popup.error(exception, "Error writing users file", "");
@@ -107,12 +105,6 @@ public class UserList {
 			Popup.error(exception, "Error reading users file", "");
 			exception.printStackTrace();
 		}
-
-		for (User each: userList) {
-			System.out.println(each);
-		}
-		System.out.println();
-
 	}
 
 	public User matchEmail(String emailInput) {

@@ -1,4 +1,3 @@
-
 package tax;
 
 import javafx.geometry.Insets;
@@ -42,7 +41,6 @@ public class Registration {
 	firstNameBox.getChildren().addAll(firstNameLabel, firstNameField);
 
 
-
 		Label lastNameLabel = new Label("Last Name");
 
 		TextField lastNameField = new TextField();
@@ -57,7 +55,6 @@ public class Registration {
 
 	VBox lastNameBox = new VBox();
 	lastNameBox.getChildren().addAll(lastNameLabel, lastNameField);
-
 
 
 		Label dobLabel = new Label("Date of Birth");
@@ -82,7 +79,6 @@ public class Registration {
 	dobBox.getChildren().addAll(dobLabel, dobField);
 
 
-
 		Label streetLabel = new Label("Street Address");
 
 		TextField streetField = new TextField();
@@ -97,6 +93,7 @@ public class Registration {
 
 	VBox streetBox = new VBox();
 	streetBox.getChildren().addAll(streetLabel, streetField);
+
 
 		Label cityLabel = new Label("City");
 
@@ -157,6 +154,7 @@ public class Registration {
 	VBox postBox = new VBox();
 	postBox.getChildren().addAll(postLabel, postField);
 
+
 		Label phoneLabel = new Label("Phone Number");
 
 		TextField phoneField = new TextField();
@@ -180,6 +178,7 @@ public class Registration {
 	VBox phoneBox = new VBox();
 	phoneBox.getChildren().addAll(phoneLabel, phoneField);
 
+
 		Label emailLabel = new Label("Email Address");
 
 		TextField emailField = new TextField();
@@ -202,7 +201,6 @@ public class Registration {
 	emailBox.getChildren().addAll(emailLabel, emailField);
 
 	    
-
 		Label passwordLabel = new Label("Password");
 
 		PasswordField passwordField = new PasswordField();
@@ -226,6 +224,7 @@ public class Registration {
 	VBox passwordBox = new VBox();
 	passwordBox.getChildren().addAll(passwordLabel, passwordField);
 
+
 		Label rePasswordLabel = new Label("Re-enter Password");
 
 		PasswordField rePasswordField = new PasswordField();
@@ -238,6 +237,7 @@ public class Registration {
 
 	VBox rePasswordBox = new VBox();
 	rePasswordBox.getChildren().addAll(rePasswordLabel, rePasswordField);
+
 
 	// Input field grid
 	GridPane inputArea = new GridPane();
@@ -268,55 +268,51 @@ public class Registration {
 	inputArea.getColumnConstraints().add(column1);
 	
 
+		CheckBox tosCheck = new CheckBox("I have read and agree to the ");
 
-	CheckBox tosCheck = new CheckBox("I have read and agree to the ");
+		Button tosLink = new Button("Terms of Service");
+		tosLink.setStyle("-fx-background-color: rgba(0,0,0,0); -fx-text-fill: blue");
+		tosLink.setPadding(new Insets(0, 0, 0, 0));
 
-	Button tosLink = new Button("Terms of Service");
-	tosLink.setStyle("-fx-background-color: rgba(0,0,0,0); -fx-text-fill: blue");
-	tosLink.setPadding(new Insets(0, 0, 0, 0));
-
-        tosLink.setOnAction(e -> {
-		Stage tosBox = new Stage();
-		tosBox.setScene(new TermsOfService().getScene(tosBox));
-		tosBox.show();
-	});
+		tosLink.setOnAction(e -> {
+			Stage tosBox = new Stage();
+			tosBox.setScene(new TermsOfService().getScene(tosBox));
+			tosBox.show();
+		});
 
 	HBox tosArea = new HBox();
 	tosArea.setAlignment(Pos.CENTER_LEFT);
 	tosArea.getChildren().addAll(tosCheck, tosLink);
 	
-	Button registerButton = new Button("Register");
 
-	Button cancelButton = new Button("Cancel");
+		Button registerButton = new Button("Register");
 
-	Label overallError = new Label();
-	overallError.setStyle("-fx-text-fill: red;");
+		Button cancelButton = new Button("Cancel");
+
+		Label overallError = new Label();
+		overallError.setStyle("-fx-text-fill: red;");
+
+		UserList userList = new UserList();
+		registerButton.setOnAction(e -> {
+			validator.validatePassword(passwordField, rePasswordField, passwordError);
+			validator.validateEmail(emailField, emailError);
+			validator.validatePhone(phoneField, phoneError);
+
+			if (validator.allValid(overallError, tosCheck, dobField, dobError, postField, postError, regionField, firstNameField, lastNameField, streetField, cityField)) {
+				userList.createUser(true, firstNameField.getText(), lastNameField.getText(), dobField.getText(), streetField.getText(), cityField.getText(), regionField.getValue(), postField.getText(), phoneField.getText(), emailField.getText(), passwordField.getText());
+
+				currentStage.setScene(new Login().getScene(currentStage));
+			}
+		});
+
+		cancelButton.setOnAction(e -> { 
+				currentStage.setScene(new Login().getScene(currentStage));
+		});
 
 	HBox registerArea = new HBox(15);
 	registerArea.setAlignment(Pos.CENTER_LEFT);
 	registerArea.getChildren().addAll(registerButton, cancelButton, overallError);
 
-
-
-
-	UserList userList = new UserList();
-        registerButton.setOnAction(e -> {
-		validator.validatePassword(passwordField, rePasswordField, passwordError);
-		validator.validateEmail(emailField, emailError);
-		validator.validatePhone(phoneField, phoneError);
-
-		if (validator.allValid(overallError, tosCheck, dobField, dobError, postField, postError, regionField, firstNameField, lastNameField, streetField, cityField)) {
-			userList.createUser(true, firstNameField.getText(), lastNameField.getText(), dobField.getText(), streetField.getText(), cityField.getText(), regionField.getValue(), postField.getText(), phoneField.getText(), emailField.getText(), passwordField.getText());
-
-			currentStage.setScene(new Login().getScene(currentStage));
-		}
-	});
-
-        cancelButton.setOnAction(e -> { 
-			currentStage.setScene(new Login().getScene(currentStage));
-	});
-
-	
 	VBox submitPanel = new VBox(10);
 	submitPanel.getChildren().addAll(tosArea, registerArea);
 

@@ -41,7 +41,6 @@ public class GeneralDeductions extends Application {
 
         Label label1 = new Label("General Deductions");
         label1.setFont(new Font("Arial", 24));
-        TextField institution = new TextField();
         label1.setAlignment(Pos.CENTER_LEFT);
         label1.setPadding(new Insets(10, 20, 10, 20));
 

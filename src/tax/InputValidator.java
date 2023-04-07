@@ -156,16 +156,14 @@ public class InputValidator {
 			field.positionCaret(originalCaretPosition);
 		}
 
-		// only allow year to be between oldest living person's birth year and the current year
 		if (input.matches("[0-9]{4}.*")) {
 			error.setText("Invalid Date");
 			field.setStyle("-fx-text-box-border: red; -fx-focus-color: red");
+			// prevent year from being greater than the current year
 			if (Integer.parseInt(input.substring(0, 4)) > Year.now().getValue()) {
-				System.out.println("Year cannot be greater than the current year.");
 				return;
-
+			// prevent year from being before the oldest living person
 			} else if (Integer.parseInt(input.substring(0, 4)) < OLDEST_BIRTH_YEAR) {
-				System.out.println("Year cannot be before " + OLDEST_BIRTH_YEAR + ".");
 				return;
 			} else {
 				error.setText("");
@@ -182,7 +180,6 @@ public class InputValidator {
 				dobValid = true;
 			}
 			catch (DateTimeParseException exception) {
-				System.out.println(exception.getMessage());
 				error.setText("Invalid Date");
 				field.setStyle("-fx-text-box-border: red; -fx-focus-color: red");
 			}
@@ -227,20 +224,19 @@ public class InputValidator {
 			}
 		}
 	}
+
 	public void validatePhone(TextField field, Label error) {
 		// minimum number + country code that exists is 7 digits (island country Niue)
 		// max digits already checked in TextFormatter
-
 		if (field.getText().trim().length() >= 7) {
-				error.setText("");
-				field.setStyle("");
-				phoneValid = true;
+			error.setText("");
+			field.setStyle("");
+			phoneValid = true;
 		} else {
-				error.setText("Invalid Phone Number");
-				field.setStyle("-fx-text-box-border: red; -fx-focus-color: red");
-				phoneValid = false;
+			error.setText("Invalid Phone Number");
+			field.setStyle("-fx-text-box-border: red; -fx-focus-color: red");
+			phoneValid = false;
 		}
-
 	}
 
 	public void validateEmail(TextField field, Label error) {
