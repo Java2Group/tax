@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 /**
+ * Utility class for creating alert popup windows.
  *
  * @author Brandon Yaeck
  */

@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
+ * Terms of service popup window that can be viewed from the registration form.
  *
  * @author Brandon Yaeck
  */

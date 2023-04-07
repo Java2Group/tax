@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
+ * Results window that contains tax results and the option to save the results to a local text file.
  *
  * @author Michael Sousa
  */

@@ -4,6 +4,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 /**
+ * Validates Tax Form input fields.
  *
  * @author Michael Sousa
  */

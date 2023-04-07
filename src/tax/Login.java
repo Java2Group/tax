@@ -12,7 +12,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 /**
+ * User login screen.
  *
  * @author Brandon Yaeck
  */

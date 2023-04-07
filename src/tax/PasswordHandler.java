@@ -9,6 +9,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 /**
+ * Handles creating salts, creating password hashes, and matching password hashes
  *
  * @author Brandon Yaeck
  */

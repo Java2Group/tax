@@ -1,6 +1,7 @@
 package tax;
 
 /**
+ * Calculates the tax return with the values it receives.
  *
  * @author Michael Sousa
  * @author Brandon Yaeck

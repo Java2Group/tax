@@ -12,6 +12,7 @@ import java.util.Base64;
 import java.util.Scanner;
 
 /**
+ * Handles creating User objects and loading them from a text file into an ArrayList
  *
  * @author Brandon Yaeck
  */

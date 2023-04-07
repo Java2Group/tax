@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
 /**
+ * Validates user input for the registration screen.
  *
  * @author Brandon Yaeck
  */

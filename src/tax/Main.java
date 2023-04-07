@@ -2,7 +2,9 @@ package tax;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 /**
+ * Main class used to launch the JavaFX program using scenes returned from other classes.
  *
  * @author Brandon Yaeck
  */

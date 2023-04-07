@@ -3,6 +3,7 @@ package tax;
 import java.util.Arrays;
 
 /**
+ * Models each registered user
  *
  * @author Brandon Yaeck
  */

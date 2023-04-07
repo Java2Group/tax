@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
+ * User welcome display and general deductions input.
  *
  * @author Abdulrahman Chalya
  */

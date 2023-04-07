@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
+ * Tax information input for T4, T5, and T2202 forms.
  *
  * @author Michael Sousa
  */
